@@ -2,10 +2,10 @@ package com.demoqa.tests;
 
 import com.demoqa.pages.*;
 import com.demoqa.pages.elementsPage.*;
-import com.demoqa.utilities.DriverSetup;
+import com.demoqa.utilities.CredentialsGenerator;
+import com.demoqa.utilities.WebDriverManager;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.interactions.Actions;
-import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
@@ -18,10 +18,25 @@ public class BaseTest {
     protected WebDriver driver;
     protected WebDriverWait wait;
     protected Actions actions;
-    protected SoftAssert softAssert;
     // endregion
 
-    DriverSetup driverSetup;
+    WebDriverManager webDriverManager;
+
+
+    // Variables to store generated data for testing.
+    public String getRandomEmail;
+    public String getRandomPassword;
+    public String getRandomFirstName;
+    public String getRandomLastName;
+
+    public BaseTest() {
+        // Generate random data once for the entire test class.
+        getRandomEmail = CredentialsGenerator.getRandomEmail();
+        getRandomPassword = CredentialsGenerator.getRandomPassword();
+        getRandomFirstName = CredentialsGenerator.getRandomFirstName(5);
+        getRandomLastName = CredentialsGenerator.getRandomLastName(7);
+    }
+
 
 
     // region Page Object Declaration
@@ -40,10 +55,10 @@ public class BaseTest {
 
     @BeforeMethod
     public void setUp() {
-        driverSetup = new DriverSetup();
+        webDriverManager = new WebDriverManager();
         // region Initiate the WebDriver, WebDriverWait, and Actions Initialization
         String browserName = "chrome";
-        driver = driverSetup.initiateDriver(browserName);
+        driver = webDriverManager.initiateDriver(browserName);
         wait = new WebDriverWait(driver, Duration.ofSeconds(10));
         actions = new Actions(driver);
 
@@ -54,9 +69,7 @@ public class BaseTest {
         checkBoxPage = new CheckBoxPage(driver, wait);
         dynamicPropertiesPage =new DynamicPropertiesPage(driver, wait);
         linksPage = new LinksPage(driver, wait);
-
         radioButtonPage = new RadioButtonPage(driver, wait);
-
         textBoxPage = new TextBoxPage(driver, wait);
         uploadAndDownloadPage = new UploadAndDownloadPage(driver, wait);
         webTablesPage = new WebTablesPage(driver, wait, homePage);

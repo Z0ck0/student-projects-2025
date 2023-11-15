@@ -44,20 +44,20 @@ public class TextBoxPage extends BasePage {
         return isOnExpectedPage("https://demoqa.com/text-box");
     }
 
-    public void enterFullName(String text) {
-        sendKeysToElement(fullNameInputField, text);
+    public void enterFullName(String fullName) {
+        sendKeysToElement(fullNameInputField, fullName);
     }
 
-    public void enterEmail(String text) {
-        sendKeysToElement(emailInputField, text);
+    public void enterEmail(String emailAddress) {
+        sendKeysToElement(emailInputField, emailAddress);
     }
 
-    public void enterCurrentAddress(String text) {
-        sendKeysToElement(currentAddressInputField, text);
+    public void enterCurrentAddress(String address) {
+        sendKeysToElement(currentAddressInputField, address);
     }
 
-    public void enterPermanentAddress(String text) {
-        sendKeysToElement(permanentAddressInputField, text);
+    public void enterPermanentAddress(String permanentAddress) {
+        sendKeysToElement(permanentAddressInputField, permanentAddress);
     }
 
     public void clickSubmitButton() {

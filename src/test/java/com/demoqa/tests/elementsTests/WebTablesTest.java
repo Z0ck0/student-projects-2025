@@ -1,8 +1,11 @@
 package com.demoqa.tests.elementsTests;
 
 import com.demoqa.tests.BaseTest;
+import com.demoqa.utilities.DateTimeManagementUtils;
 import org.testng.Assert;
 import org.testng.annotations.Test;
+
+import java.util.Date;
 
 public class WebTablesTest extends BaseTest {
 
@@ -11,6 +14,9 @@ public class WebTablesTest extends BaseTest {
         webTablesPage.navigateToWebTablesSubCategory();
         System.out.println("The total number of rows in the table is: " + webTablesPage.getTotalRowsInTable());
         Assert.assertEquals(webTablesPage.getTotalRowsInTable(), 10);
+
+        // Call the formatTimestamp method and print the result
+        System.out.println("Timestamp of Test Execution: " + DateTimeManagementUtils.formatTimestamp(new Date()));
     }
 
 

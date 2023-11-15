@@ -1,8 +1,11 @@
 package com.demoqa.tests.elementsTests;
 
 import com.demoqa.tests.BaseTest;
+import com.demoqa.utilities.DateTimeManagementUtils;
 import org.testng.Assert;
 import org.testng.annotations.Test;
+
+import java.util.Date;
 
 public class CheckBoxTest extends BaseTest {
     @Test (priority = 3)
@@ -23,6 +26,14 @@ public class CheckBoxTest extends BaseTest {
         checkBoxPage.clickOnCollapsedAllButton();
         // Verify that ALL Toggles are AGAIN hidden
         checkBoxPage.assertTogglesHidden("Desktop", "Documents", "WorkSpace", "Office", "Downloads");
+
+        // Call the formatTimestamp method and print the result
+        System.out.println("Timestamp of Test Execution: " + DateTimeManagementUtils.formatTimestamp(new Date()));
+
+        // Create a Date object representing the current date
+        Date currentDate = new Date();
+        System.out.println("Future Test Execution Date: " + DateTimeManagementUtils.addDaysToDate(currentDate, 20));
+        System.out.println("get Hour Of Day: " + DateTimeManagementUtils.getHourOfDay(currentDate) + ":" + DateTimeManagementUtils.getMinuteOfHour(currentDate));
     }
 
 

@@ -9,10 +9,7 @@ import org.openqa.selenium.edge.EdgeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxOptions;
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
-public class DriverSetup {
+public class WebDriverManager {
     private WebDriver driver;
 
     public WebDriver initiateDriver(@NotNull String browserName) {

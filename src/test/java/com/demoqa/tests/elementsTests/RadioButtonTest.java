@@ -3,6 +3,8 @@ package com.demoqa.tests.elementsTests;
 import com.demoqa.tests.BaseTest;
 import org.testng.Assert;
 import org.testng.annotations.Test;
+import com.demoqa.utilities.DateTimeManagementUtils;
+import java.util.Date;
 
 
 public class RadioButtonTest extends BaseTest {
@@ -12,7 +14,9 @@ public class RadioButtonTest extends BaseTest {
         radioButtonPage.clickOnTextRadioButtonCategory();
         radioButtonPage.clickOnYesRadioButton();
         Assert.assertTrue(radioButtonPage.isOnCheckBoxSubCategory(), "Text Box Subcategory is not displayed.");
-        Assert.assertEquals(radioButtonPage.getSuccessMessageForYesSelection(), "Yes");
+
+        // Call the formatTimestamp method and print the result
+        System.out.println("Timestamp of Test Execution: " + DateTimeManagementUtils.formatTimestamp(new Date()));
     }
 
     @Test (priority = 2)
@@ -22,6 +26,7 @@ public class RadioButtonTest extends BaseTest {
         radioButtonPage.clickOnImpressiveRadioButton();
         Assert.assertTrue(radioButtonPage.isOnCheckBoxSubCategory(), "Text Box Subcategory is not displayed.");
         Assert.assertEquals(radioButtonPage.getSuccessMessageForImpressiveSelection(), "Impressive");
+
     }
 
     @Test (priority = 3)

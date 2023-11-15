@@ -1,8 +1,11 @@
 package com.demoqa.tests.elementsTests;
 
 import com.demoqa.tests.BaseTest;
+import com.demoqa.utilities.DateTimeManagementUtils;
 import org.testng.Assert;
 import org.testng.annotations.Test;
+
+import java.util.Date;
 
 public class TextBoxTest extends BaseTest {
 
@@ -16,8 +19,8 @@ public class TextBoxTest extends BaseTest {
 
 
         // Input valid data into the form fields
-        textBoxPage.enterFullName("Zoran Dimitrievski");
-        textBoxPage.enterEmail("zzdimitrievski@gmail.com");
+        textBoxPage.enterFullName(getRandomFirstName);
+        textBoxPage.enterEmail(getRandomEmail);
         textBoxPage.enterCurrentAddress("3 MUB 45");
         textBoxPage.enterPermanentAddress("3 MUB 45");
 
@@ -26,14 +29,17 @@ public class TextBoxTest extends BaseTest {
         textBoxPage.scrollToOutputBlockDisplayed();
 
         // Check the displayed information in the output fields
-        Assert.assertEquals(textBoxPage.getNameTextFromOutputField(), "Name:Zoran Dimitrievski",
+        Assert.assertEquals(textBoxPage.getNameTextFromOutputField(), "Name:"+getRandomFirstName,
                 "The displayed Full Name in the output field doesn't match the expected value.");
-        Assert.assertEquals(textBoxPage.getEmailTextFromOutputField(), "Email:zzdimitrievski@gmail.com",
+        Assert.assertEquals(textBoxPage.getEmailTextFromOutputField(), "Email:"+getRandomEmail,
                 "The displayed Email address in the output Email field doesn't match the expected value.");
         Assert.assertEquals(textBoxPage.getCurrentAddressOutputField(), "Current Address :3 MUB 45",
                 "The displayed Current Address in the output Current Address field doesn't match the expected value.");
         Assert.assertEquals(textBoxPage.getPermanentAddressOutputField(), "Permananet Address :3 MUB 45",
                 "The displayed Permanent Address in the output Permanent Address field doesn't match the expected value.");
+
+        // Call the formatTimestamp method and print the result
+        System.out.println("Timestamp of Test Execution: " + DateTimeManagementUtils.formatTimestamp(new Date()));
     }
 
     @Test (groups = {"regression"}, priority = 1)
@@ -92,11 +98,11 @@ public class TextBoxTest extends BaseTest {
         textBoxPage.clickOnTextBoxSubCategory();
 
         // Enter a valid email and submit
-        textBoxPage.enterEmail("example@gmail.com");
+        textBoxPage.enterEmail(getRandomEmail);
         textBoxPage.clickSubmitButton();
 
         // Assert that the displayed email in the output field matches the expected value
-        Assert.assertEquals(textBoxPage.getEmailTextFromOutputField(), "Email:example@gmail.com",
+        Assert.assertEquals(textBoxPage.getEmailTextFromOutputField(), "Email:"+getRandomEmail,
                 "The displayed Email address in the output Email field doesn't match the expected value.");
 
         // Clear the email field and submit

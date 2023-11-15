@@ -1,4 +1,4 @@
-package com.demoqa.utilities;
+package utils;
 
 /*************************************** PURPOSE **********************************
  - This class implements the WebDriverEventListener, which is included under events.
@@ -7,16 +7,15 @@ package com.demoqa.utilities;
  Do not call any of these methods, instead these methods will be invoked automatically
  as an when the action done (click, findBy etc).
  */
-import com.demoqa.tests.BaseTest;
+
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.events.WebDriverEventListener;
 
-import java.io.IOException;
-
-    public class WebEventListener extends BaseTest implements WebDriverEventListener {
+    public class WebEventListener implements WebDriverEventListener {
 
         public void beforeNavigateTo(String url, WebDriver driver) {
             System.out.println("Before navigating to: '" + url + "'");
