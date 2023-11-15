@@ -1,33 +1,29 @@
-**DemoQA Automated UI Testing (Work in Progress)**
+## **DemoQA Automated UI Testing (Work in Progress)**
 
-**Introduction**
+**Introduction:**
 Welcome to the "demoqa-automated-ui-testing-wip" repository, an ongoing project dedicated to automating tests for the DemoQA website.  This project is a work in progress, focusing on implementing robust test cases using Java and the Page Object Model (POM) design pattern.
 
+**Project Structure:**
+- Packages: Each category on the DemoQA website corresponds to a separate package.
+- Classes: Within each package, individual subcategories are represented as classes, promoting a modular and organized structure.
+- BasePage and BaseTest: Utilizing the POM design pattern, the project includes a BasePage class emphasizing abstraction for enhanced code reusability. The BaseTest class serves as a foundation for test classes.
+- The utility package provides essential class  and helper methods, contributing to the efficiency and maintainability of the test automation suite.
+  
 
-**Page Object Model (POM) Design Pattern**
-**BasePage:** An abstract class serving as a template for other page classes, promoting inheritance, and code reusability.
+**Noteworthy Features:**
+- @FindBy and PageFactory: Leveraging annotations such as @FindBy and the PageFactory class for efficient element location strategies.
+- Abstraction: The BasePage class is designed as an abstract template for derived page classes, promoting inheritance and consistent behavior.
+- Structured Testing: Test classes are organized based on functionality, such as elements, forms, interactions, widgets, etc.
+  
+
+**Dependencies**
+The project uses the following dependencies:
+ - TestNG
+ - Selenium WebDriver
+ - Allure
 
 
-Test Classes
-TextBoxTest
-Tests:
-Valid data submission with detailed result verification.
-Acceptance of special characters in form submission.
-Ensures no visible change occurs after an empty submission.
-Valid and invalid email submissions with result validation.
-RadioButtonTest
-Tests:
-Success message verification for different radio button selections.
-Checking the disabled state of a radio button.
-Style and Patterns
-Abstraction and Code Reusability
-BasePage: Promotes code reusability through abstraction, simplifying the complexity of modeling different entities.
-@FindBy - PageFactory
-Utilizes @FindBy annotations and PageFactory initialization for clear mapping between web elements and Java representations, enhancing code readability.
-Additional Components
-BaseTest
-Purpose: Contains common setup and teardown procedures for test classes.
-Utilities
-Purpose: Provides utility methods for common functionalities.
-Work in Progress
-This project is actively evolving. Expect ongoing additions, improvements, and additional test cases. Feel free to explore the code, run tests, and contribute to the project's development. Happy testing!
+**Contributing**
+If you would like to contribute to this project, please feel free to create a pull request.
+
+![Screenshot_1](https://github.com/Z0ck0/demoqa-automated-ui-testing-wip/assets/132205377/6117f490-1900-4815-95dc-257374155fb1)
