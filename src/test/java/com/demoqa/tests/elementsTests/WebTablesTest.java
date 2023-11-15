@@ -1,11 +1,13 @@
 package com.demoqa.tests.elementsTests;
 
 import com.demoqa.tests.BaseTest;
-import com.demoqa.utilities.DateTimeManagementUtils;
+import com.demoqa.utilities.CustomLogger;
+import com.demoqa.utilities.DateTimeManagement;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
 import java.util.Date;
+
 
 public class WebTablesTest extends BaseTest {
 
@@ -16,7 +18,7 @@ public class WebTablesTest extends BaseTest {
         Assert.assertEquals(webTablesPage.getTotalRowsInTable(), 10);
 
         // Call the formatTimestamp method and print the result
-        System.out.println("Timestamp of Test Execution: " + DateTimeManagementUtils.formatTimestamp(new Date()));
+        System.out.println("Timestamp of Test Execution: " + DateTimeManagement.formatTimestamp(new Date()));
     }
 
 
@@ -44,20 +46,26 @@ public class WebTablesTest extends BaseTest {
 
     @Test(priority = 4)
     public void testAddNewUserViaRegistrationForm() {
-        webTablesPage.navigateToWebTablesSubCategory();
-        webTablesPage.clickOnAddButton();
-        webTablesPage.enterUserDataInRegistrationForm(
-                "Zoran",
-                "Dimitrievski",
-                "zzdimitrievski@gmail.com",
-                "41",
-                "25000",
-                "IT");
-        webTablesPage.clickOnRegistrationFormSubmitButton();
+        try {
+            webTablesPage.navigateToWebTablesSubCategory();
+            webTablesPage.clickOnAddButton();
+            webTablesPage.enterUserDataInRegistrationForm(
+                    "Zoran",
+                    "Dimitrievski",
+                    "zzdimitrievski@gmail.com",
+                    "41",
+                    "25000",
+                    "IT");
+            webTablesPage.clickOnRegistrationFormSubmitButton();
+        } catch (Exception e) {
+            CustomLogger.error("An error occurred during the test.", e);
+            // Handle the exception or rethrow it
+        }
 
         //Verify the new record is added to the table
         Assert.assertEquals(webTablesPage.verifyNewDataArePresentInTable(),
                 "Zoran Dimitrievski 41 zzdimitrievski@gmail.com 25000 IT",
                 "The new data in the table is not as expected");
     }
+
 }

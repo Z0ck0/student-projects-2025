@@ -4,7 +4,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
-public class DateTimeManagementUtils {
+public class DateTimeManagement {
 
     // Date format used for formatting date/time strings
     private static final String DEFAULT_DATE_FORMAT = "dd-MM-yyyy HH:mm:ss";
@@ -12,7 +12,7 @@ public class DateTimeManagementUtils {
     // Calendar instance used for date/time calculations
     private static final Calendar CALENDAR = Calendar.getInstance();
 
-    private DateTimeManagementUtils() {
+    private DateTimeManagement() {
         // Private constructor to prevent instantiation
     }
 

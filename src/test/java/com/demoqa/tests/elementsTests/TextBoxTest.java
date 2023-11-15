@@ -1,7 +1,7 @@
 package com.demoqa.tests.elementsTests;
 
 import com.demoqa.tests.BaseTest;
-import com.demoqa.utilities.DateTimeManagementUtils;
+import com.demoqa.utilities.DateTimeManagement;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
@@ -39,7 +39,7 @@ public class TextBoxTest extends BaseTest {
                 "The displayed Permanent Address in the output Permanent Address field doesn't match the expected value.");
 
         // Call the formatTimestamp method and print the result
-        System.out.println("Timestamp of Test Execution: " + DateTimeManagementUtils.formatTimestamp(new Date()));
+        System.out.println("Timestamp of Test Execution: " + DateTimeManagement.formatTimestamp(new Date()));
     }
 
     @Test (groups = {"regression"}, priority = 1)
