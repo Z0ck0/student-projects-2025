@@ -1,7 +1,7 @@
 package com.demoqa.tests;
 
 import com.demoqa.pages.*;
-import com.demoqa.pages.elementsPage.*;
+import com.demoqa.pages.elements.*;
 import com.demoqa.utilities.RandomDataGenerator;
 import com.demoqa.utilities.WebDriverManager;
 import org.openqa.selenium.WebDriver;

@@ -68,10 +68,8 @@ public class CheckBoxTest extends BaseTest {
     }
 
     private void verifyToggle(String toggleName, String... checkboxes) {
-
         // Expand the toggle
         checkBoxPage.clickToggle(toggleName);
-
 
         // Assert that the specified checkboxes are visible
         checkBoxPage.assertTogglesCheckboxesAreDisplayed(checkboxes);
