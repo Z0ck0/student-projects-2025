@@ -2,6 +2,7 @@ package com.demoqa.pages.elementsPage;
 
 import com.demoqa.pages.BasePage;
 import com.demoqa.pages.HomePage;
+import com.demoqa.utilities.RandomDataGenerator;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -17,25 +18,27 @@ public class WebTablesPage extends BasePage {
 
     private final HomePage homePage;
 
+
+
     @FindBy(id = "item-3")
     private WebElement webTablesSectionLink;
     @FindBy(css = "#addNewRecordButton")
     WebElement addButton;
-    @FindBy (id = "firstName")
+    @FindBy(id = "firstName")
     WebElement registrationFormFirstName;
 
-    @FindBy (id = "lastName")
+    @FindBy(id = "lastName")
     WebElement registrationFormLastName;
-    @FindBy (id = "userEmail")
+    @FindBy(id = "userEmail")
     WebElement registrationFormEmail;
-    @FindBy (id = "age")
+    @FindBy(id = "age")
     WebElement registrationFormAge;
 
-    @FindBy (id = "salary")
+    @FindBy(id = "salary")
     WebElement registrationFormSalary;
-    @FindBy (id = "department")
+    @FindBy(id = "department")
     WebElement registrationFormDepartment;
-    @FindBy (id = "submit")
+    @FindBy(id = "submit")
     WebElement registrationFormSubmitBtn;
     @FindBy(css = "#searchBox")
     WebElement searchBoxInputField;
@@ -54,16 +57,20 @@ public class WebTablesPage extends BasePage {
     List<WebElement> tableCells;
 
 
-
-
     @FindBy(xpath = "//select[@aria-label='rows per page']")
     WebElement rowsPerPageDropDown;
 
-
     public WebTablesPage(WebDriver driver, WebDriverWait wait, HomePage homePage) {
         super(driver, wait);
-        this.homePage = homePage;
+        this.homePage = homePage; // Initialization of the HomePage reference
     }
+
+    public void navigateToWebTablesSubCategory() {
+        homePage.clickElementsNavigationBar(); // Using the HomePage to click on navigation bar
+        clickOnWebTablesSubCategory();  // Clicking on the "Web Tables" subcategory
+        Assert.assertTrue(isOnWebTablesSubCategory(), "Text Box Subcategory is not displayed.");
+    }
+
 
     public boolean isOnWebTablesSubCategory() {
         return isOnExpectedPage("https://demoqa.com/webtables");
@@ -111,46 +118,47 @@ public class WebTablesPage extends BasePage {
         }
     }
 
-    public void navigateToWebTablesSubCategory() {
-        homePage.clickElementsNavigationBar();
-        clickOnWebTablesSubCategory();
-        Assert.assertTrue(isOnWebTablesSubCategory(), "Text Box Subcategory is not displayed.");
-    }
 
     public void retrieveAndPrintTableElements() {
-            for (WebElement row : rows) {
+        for (WebElement row : rows) {
 
-                // Find all columns in the current row
-                List<WebElement> rowColumns = row.findElements(By.xpath(".//div[@class='rt-td']"));
+            // Find all columns in the current row
+            List<WebElement> rowColumns = row.findElements(By.xpath(".//div[@class='rt-td']"));
 
-                for (WebElement column : rowColumns) {
-                    // Get the text of the column and print it
-                    String columnText = column.getText();
-                    System.out.print(columnText + "\t");
-                }
-                System.out.println(); // Move to the next row
+            for (WebElement column : rowColumns) {
+                // Get the text of the column and print it
+                String columnText = column.getText();
+                System.out.print(columnText + "\t");
             }
+            System.out.println(); // Move to the next row
         }
+    }
 
-    public void clickOnAddButton(){
+    public void clickOnAddButton() {
         clickElement(addButton);
     }
-    public void enterFirstNameOnRegistrationForm(String text){
+
+    public void enterFirstNameOnRegistrationForm(String text) {
         sendKeysToElement(registrationFormFirstName, text);
     }
-    public void enterLastNameOnRegistrationForm(String text){
+
+    public void enterLastNameOnRegistrationForm(String text) {
         sendKeysToElement(registrationFormLastName, text);
     }
-    public void enterEmailOnRegistrationForm(String text){
+
+    public void enterEmailOnRegistrationForm(String text) {
         sendKeysToElement(registrationFormEmail, text);
     }
-    public void enterAgeOnRegistrationForm(String text){
+
+    public void enterAgeOnRegistrationForm(String text) {
         sendKeysToElement(registrationFormAge, text);
     }
-    public void enterSalaryOnRegistrationForm(String text){
+
+    public void enterSalaryOnRegistrationForm(String text) {
         sendKeysToElement(registrationFormSalary, text);
     }
-    public void enterDepartmentOnRegistrationForm(String text){
+
+    public void enterDepartmentOnRegistrationForm(String text) {
         sendKeysToElement(registrationFormDepartment, text);
     }
 
@@ -163,9 +171,10 @@ public class WebTablesPage extends BasePage {
         enterDepartmentOnRegistrationForm(department);
     }
 
-    public void clickOnRegistrationFormSubmitButton(){
+    public void clickOnRegistrationFormSubmitButton() {
         clickElement(registrationFormSubmitBtn);
     }
+
 
 
     public String verifyNewDataArePresentInTable() {

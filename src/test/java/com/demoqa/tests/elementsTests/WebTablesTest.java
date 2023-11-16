@@ -2,7 +2,7 @@ package com.demoqa.tests.elementsTests;
 
 import com.demoqa.tests.BaseTest;
 import com.demoqa.utilities.CustomLogger;
-import com.demoqa.utilities.DateTimeManagement;
+import com.demoqa.utilities.DateTimeUtils;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
@@ -18,7 +18,7 @@ public class WebTablesTest extends BaseTest {
         Assert.assertEquals(webTablesPage.getTotalRowsInTable(), 10);
 
         // Call the formatTimestamp method and print the result
-        System.out.println("Timestamp of Test Execution: " + DateTimeManagement.formatTimestamp(new Date()));
+        System.out.println("Timestamp of Test Execution: " + DateTimeUtils.formatTimestamp(new Date()));
     }
 
 

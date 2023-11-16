@@ -1,10 +1,12 @@
 package com.demoqa.utilities;
 
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
 import java.util.Date;
 
-public class DateTimeManagement {
+public class DateTimeUtils {
 
     // Date format used for formatting date/time strings
     private static final String DEFAULT_DATE_FORMAT = "dd-MM-yyyy HH:mm:ss";
@@ -12,7 +14,7 @@ public class DateTimeManagement {
     // Calendar instance used for date/time calculations
     private static final Calendar CALENDAR = Calendar.getInstance();
 
-    private DateTimeManagement() {
+    private DateTimeUtils() {
         // Private constructor to prevent instantiation
     }
 
@@ -40,6 +42,11 @@ public class DateTimeManagement {
     }
     //endregion
 
+    public static String getCurrentDate(){
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("EEEE, dd MMM yyy");
+        LocalDateTime now = LocalDateTime.now();
+        return dtf.format(now);
+    }
 
     //region    Get the hour of the day from a given date.
     public static int getHourOfDay(Date date) {

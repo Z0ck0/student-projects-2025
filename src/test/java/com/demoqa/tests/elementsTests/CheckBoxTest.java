@@ -1,14 +1,15 @@
 package com.demoqa.tests.elementsTests;
 
 import com.demoqa.tests.BaseTest;
-import com.demoqa.utilities.DateTimeManagement;
+import com.demoqa.utilities.DateTimeUtils;
+import com.demoqa.utilities.RandomDataGenerator;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
 import java.util.Date;
 
 public class CheckBoxTest extends BaseTest {
-    @Test (priority = 3)
+    @Test(priority = 3)
     public void testExpandAndCollapseAllFunctionality() {
         homePage.clickElementsNavigationBar();
         checkBoxPage.clickCheckBoxSubCategory();
@@ -26,18 +27,10 @@ public class CheckBoxTest extends BaseTest {
         checkBoxPage.clickOnCollapsedAllButton();
         // Verify that ALL Toggles are AGAIN hidden
         checkBoxPage.assertTogglesHidden("Desktop", "Documents", "WorkSpace", "Office", "Downloads");
-
-        // Call the formatTimestamp method and print the result
-        System.out.println("Timestamp of Test Execution: " + DateTimeManagement.formatTimestamp(new Date()));
-
-        // Create a Date object representing the current date
-        Date currentDate = new Date();
-        System.out.println("Future Test Execution Date: " + DateTimeManagement.addDaysToDate(currentDate, 20));
-        System.out.println("get Hour Of Day: " + DateTimeManagement.getHourOfDay(currentDate) + ":" + DateTimeManagement.getMinuteOfHour(currentDate));
     }
 
 
-    @Test (priority = 2)
+    @Test(priority = 2)
     public void testCheckAndUncheckAllFunctionality() {
         homePage.clickElementsNavigationBar();
         checkBoxPage.clickCheckBoxSubCategory();
@@ -59,7 +52,7 @@ public class CheckBoxTest extends BaseTest {
                 "The Selected checkboxes validation message is not displayed");
     }
 
-    @Test (priority = 1)
+    @Test(priority = 1)
     public void testToggleExpansionAndCheckboxVisibility() {
         // Step 1: Navigate to the Elements section and the Checkbox Subcategory
         homePage.clickElementsNavigationBar();
@@ -84,7 +77,7 @@ public class CheckBoxTest extends BaseTest {
         checkBoxPage.assertTogglesCheckboxesAreDisplayed(checkboxes);
     }
 
-    @Test (priority = 4)
+    @Test(priority = 4)
     public void testSelectionOfVariousCheckboxes() {
         homePage.clickElementsNavigationBar();
         checkBoxPage.clickCheckBoxSubCategory();

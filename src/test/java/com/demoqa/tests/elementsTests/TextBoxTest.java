@@ -1,7 +1,7 @@
 package com.demoqa.tests.elementsTests;
 
 import com.demoqa.tests.BaseTest;
-import com.demoqa.utilities.DateTimeManagement;
+import com.demoqa.utilities.DateTimeUtils;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
@@ -11,7 +11,7 @@ public class TextBoxTest extends BaseTest {
 
     @Test (groups = {"smoke", "regression"}, priority = 2)
     // Expected Result: The information provided (Full name, Email, Current address, Permanent address) is displayed correctly in the output element.
-    public void testValidDataSubmission(){
+    public void testValidDataSubmission() throws InterruptedException {
         homePage.clickElementsNavigationBar();
         textBoxPage.clickOnTextBoxSubCategory();
         Assert.assertTrue(textBoxPage.isOnTextBoxSubCategory(), "Text Box Subcategory is not displayed.");
@@ -19,27 +19,26 @@ public class TextBoxTest extends BaseTest {
 
 
         // Input valid data into the form fields
-        textBoxPage.enterFullName(getRandomFirstName);
+        textBoxPage.enterFullName(getRandomFullName);
         textBoxPage.enterEmail(getRandomEmail);
-        textBoxPage.enterCurrentAddress("3 MUB 45");
-        textBoxPage.enterPermanentAddress("3 MUB 45");
-
+        textBoxPage.enterCurrentAddress(getRandomAddress);
+        textBoxPage.enterPermanentAddress(getRandomAddress);
         textBoxPage.clickSubmitButton();
         Assert.assertTrue(textBoxPage.isOutputMessageDisplayed());
         textBoxPage.scrollToOutputBlockDisplayed();
 
         // Check the displayed information in the output fields
-        Assert.assertEquals(textBoxPage.getNameTextFromOutputField(), "Name:"+getRandomFirstName,
+        Assert.assertEquals(textBoxPage.getNameTextFromOutputField(), "Name:"+getRandomFullName,
                 "The displayed Full Name in the output field doesn't match the expected value.");
         Assert.assertEquals(textBoxPage.getEmailTextFromOutputField(), "Email:"+getRandomEmail,
                 "The displayed Email address in the output Email field doesn't match the expected value.");
-        Assert.assertEquals(textBoxPage.getCurrentAddressOutputField(), "Current Address :3 MUB 45",
+        Assert.assertEquals(textBoxPage.getCurrentAddressOutputField(), "Current Address :"+getRandomAddress,
                 "The displayed Current Address in the output Current Address field doesn't match the expected value.");
-        Assert.assertEquals(textBoxPage.getPermanentAddressOutputField(), "Permananet Address :3 MUB 45",
+        Assert.assertEquals(textBoxPage.getPermanentAddressOutputField(), "Permananet Address :"+getRandomAddress,
                 "The displayed Permanent Address in the output Permanent Address field doesn't match the expected value.");
 
         // Call the formatTimestamp method and print the result
-        System.out.println("Timestamp of Test Execution: " + DateTimeManagement.formatTimestamp(new Date()));
+        System.out.println("Timestamp of Test Execution: " + DateTimeUtils.formatTimestamp(new Date()));
     }
 
     @Test (groups = {"regression"}, priority = 1)

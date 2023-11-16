@@ -25,6 +25,14 @@
             <artifactId>selenium-java</artifactId>
             <version>4.15.0</version>
         </dependency>
+        <!-- https://mvnrepository.com/artifact/com.github.javafaker/javafaker -->
+        <!-- Data::Faker library) that generates fake data. It's useful when you're developing a new project and need some pretty data for showcase. -->
+        <dependency>
+            <groupId>com.github.javafaker</groupId>
+            <artifactId>javafaker</artifactId>
+            <version>1.0.2</version>
+        </dependency>
+
         <dependency>
             <groupId>com.thedeanda</groupId>
             <artifactId>lorem</artifactId>
@@ -48,6 +56,12 @@
             <artifactId>annotations</artifactId>
             <version>13.0</version>
             <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.13.1</version>
+            <scope>test</scope>
         </dependency>
 
     </dependencies>

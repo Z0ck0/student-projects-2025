@@ -2,14 +2,13 @@ package com.demoqa.tests;
 
 import com.demoqa.pages.*;
 import com.demoqa.pages.elementsPage.*;
-import com.demoqa.utilities.CredentialsGenerator;
+import com.demoqa.utilities.RandomDataGenerator;
 import com.demoqa.utilities.WebDriverManager;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
-import org.testng.asserts.SoftAssert;
 
 import java.time.Duration;
 
@@ -28,13 +27,21 @@ public class BaseTest {
     public String getRandomPassword;
     public String getRandomFirstName;
     public String getRandomLastName;
+    public String getRandomFullName;
+    public String getRandomPhoneNumber;
+    public String getRandomCellNumber;
+    public String getRandomAddress;
 
     public BaseTest() {
         // Generate random data once for the entire test class.
-        getRandomEmail = CredentialsGenerator.getRandomEmail();
-        getRandomPassword = CredentialsGenerator.getRandomPassword();
-        getRandomFirstName = CredentialsGenerator.getRandomFirstName(5);
-        getRandomLastName = CredentialsGenerator.getRandomLastName(7);
+        getRandomEmail = RandomDataGenerator.getRandomEmail();
+        getRandomPassword = RandomDataGenerator.getRandomPassword();
+        getRandomFirstName = RandomDataGenerator.getRandomFirstName();
+        getRandomLastName = RandomDataGenerator.getRandomLastName();
+        getRandomFullName = RandomDataGenerator.getRandomFullName();
+        getRandomPhoneNumber = RandomDataGenerator.getRandomPhoneNumber();
+        getRandomCellNumber = RandomDataGenerator.getRandomCellNumber();
+        getRandomAddress  = RandomDataGenerator.getRandomAddress();
     }
 
 
@@ -50,6 +57,8 @@ public class BaseTest {
     public TextBoxPage textBoxPage;
     public UploadAndDownloadPage uploadAndDownloadPage;
     public WebTablesPage webTablesPage;
+
+    public RandomDataGenerator randomDataGenerator;
 
 
 
