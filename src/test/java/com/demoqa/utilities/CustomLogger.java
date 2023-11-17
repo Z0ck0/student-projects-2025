@@ -5,7 +5,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class CustomLogger {
-    private static final Logger logger = Logger.getLogger(CustomLogger.class.getName());
+    public static final Logger logger = Logger.getLogger(CustomLogger.class.getName());
 
     static {
         // Configure the logger with a ConsoleHandler and set the logging level

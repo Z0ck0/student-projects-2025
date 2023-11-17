@@ -41,7 +41,7 @@ public class TextBoxPage extends BasePage {
     }
 
     public boolean isOnTextBoxSubCategory(){
-        return isOnExpectedPage("https://demoqa.com/text-box");
+        return isCurrentPageUrlEqualTo("https://demoqa.com/text-box");
     }
 
     public void enterFullName(String fullName) {
@@ -63,6 +63,13 @@ public class TextBoxPage extends BasePage {
     public void clickSubmitButton() {
         scrollToElementIntoView(submitButton);
         clickElement(submitButton);
+    }
+
+    public void fillOutTextBoxForm(String fullName, String email, String currentAddress,  String permanentAddress){
+        enterFullName(fullName);
+        enterEmail(email);
+        enterCurrentAddress(currentAddress);
+        enterPermanentAddress(permanentAddress);
     }
 
     public boolean isOutputMessageDisplayed() {

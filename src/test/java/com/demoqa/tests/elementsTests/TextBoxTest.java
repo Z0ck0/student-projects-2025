@@ -14,15 +14,17 @@ public class TextBoxTest extends BaseTest {
     public void testValidDataSubmission() throws InterruptedException {
         homePage.clickElementsNavigationBar();
         textBoxPage.clickOnTextBoxSubCategory();
+
         Assert.assertTrue(textBoxPage.isOnTextBoxSubCategory(), "Text Box Subcategory is not displayed.");
         Assert.assertEquals(textBoxPage.getCurrentPageTitle(), "DEMOQA");
 
 
         // Input valid data into the form fields
-        textBoxPage.enterFullName(getRandomFullName);
-        textBoxPage.enterEmail(getRandomEmail);
-        textBoxPage.enterCurrentAddress(getRandomAddress);
-        textBoxPage.enterPermanentAddress(getRandomAddress);
+        textBoxPage.fillOutTextBoxForm(
+                getRandomFullName,
+                getRandomEmail,
+                getRandomAddress,
+                getRandomAddress);
         textBoxPage.clickSubmitButton();
         Assert.assertTrue(textBoxPage.isOutputMessageDisplayed());
         textBoxPage.scrollToOutputBlockDisplayed();
@@ -72,10 +74,10 @@ public class TextBoxTest extends BaseTest {
     // Expected Result: Ensure that no visible change occurs after an empty submission.
     public void testNoVisibleChangeAfterEmptySubmit(){
         homePage.clickElementsNavigationBar();
-        Assert.assertTrue(textBoxPage.isOnExpectedPage("https://demoqa.com/elements"));
+        Assert.assertTrue(textBoxPage.isCurrentPageUrlEqualTo("https://demoqa.com/elements"));
 
         textBoxPage.clickOnTextBoxSubCategory();
-        Assert.assertTrue(textBoxPage.isOnExpectedPage("https://demoqa.com/text-box"));
+        Assert.assertTrue(textBoxPage.isCurrentPageUrlEqualTo("https://demoqa.com/text-box"));
 
         // Capture the initial page source
         String initialPageSource = driver.getPageSource();

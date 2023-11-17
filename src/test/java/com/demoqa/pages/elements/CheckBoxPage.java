@@ -82,7 +82,7 @@ public class CheckBoxPage extends BasePage {
     }
 
     public boolean isOnCheckBoxSubCategory() {
-        return isOnExpectedPage("https://demoqa.com/checkbox");
+        return isCurrentPageUrlEqualTo("https://demoqa.com/checkbox");
     }
 
     public void clickOnExpandAllButton() {

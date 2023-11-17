@@ -1,6 +1,7 @@
 package com.demoqa.tests.elementsTests;
 
 import com.demoqa.tests.BaseTest;
+import com.demoqa.utilities.AssertionUtils;
 import com.demoqa.utilities.DateTimeUtils;
 import com.demoqa.utilities.RandomDataGenerator;
 import org.testng.Assert;
@@ -13,9 +14,9 @@ public class CheckBoxTest extends BaseTest {
     public void testExpandAndCollapseAllFunctionality() {
         homePage.clickElementsNavigationBar();
         checkBoxPage.clickCheckBoxSubCategory();
-        Assert.assertTrue(checkBoxPage.isOnCheckBoxSubCategory(),
+        AssertionUtils.assertTrue(checkBoxPage.isOnCheckBoxSubCategory(),
                 "Checkbox Subcategory is not displayed.");
-        Assert.assertEquals(checkBoxPage.getCurrentPageTitle(), "DEMOQA");
+        AssertionUtils.assertEquals(checkBoxPage.getCurrentPageTitle(), "DEMOQA");
 
         // Ensure that ALL Toggles are initially hidden
         checkBoxPage.assertTogglesHidden("Desktop", "Documents", "WorkSpace", "Office", "Downloads");

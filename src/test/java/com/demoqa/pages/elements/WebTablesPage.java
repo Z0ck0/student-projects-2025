@@ -21,42 +21,35 @@ public class WebTablesPage extends BasePage {
     @FindBy(id = "item-3")
     private WebElement webTablesSectionLink;
     @FindBy(css = "#addNewRecordButton")
-    WebElement addButton;
+    private WebElement addButton;
     @FindBy(id = "firstName")
-    WebElement registrationFormFirstName;
+    private WebElement registrationFormFirstName;
 
     @FindBy(id = "lastName")
-    WebElement registrationFormLastName;
+    private WebElement registrationFormLastName;
     @FindBy(id = "userEmail")
-    WebElement registrationFormEmail;
+    private  WebElement registrationFormEmail;
     @FindBy(id = "age")
-    WebElement registrationFormAge;
+    private WebElement registrationFormAge;
 
     @FindBy(id = "salary")
-    WebElement registrationFormSalary;
+    private WebElement registrationFormSalary;
     @FindBy(id = "department")
-    WebElement registrationFormDepartment;
+    private WebElement registrationFormDepartment;
     @FindBy(id = "submit")
-    WebElement registrationFormSubmitBtn;
+    private WebElement registrationFormSubmitBtn;
     @FindBy(css = "#searchBox")
-    WebElement searchBoxInputField;
-
+    private WebElement searchBoxInputField;
     @FindBy(className = "rt-tbody")
-    WebElement table;
-
+    private WebElement table;
     @FindBy(xpath = "//div[@class='rt-tr-group']")
-    List<WebElement> rows;
-
+    private List<WebElement> rows;
     @FindBy(xpath = "//*[@class='rt-th rt-resizable-header -cursor-pointer']")
-    List<WebElement> columns;
-
-
+    private List<WebElement> columns;
     @FindBy(xpath = "//div[@class='rt-td']")
-    List<WebElement> tableCells;
-
-
+    private List<WebElement> tableCells;
     @FindBy(xpath = "//select[@aria-label='rows per page']")
-    WebElement rowsPerPageDropDown;
+    private WebElement rowsPerPageDropDown;
 
     public WebTablesPage(WebDriver driver, WebDriverWait wait, HomePage homePage) {
         super(driver, wait);
@@ -71,7 +64,7 @@ public class WebTablesPage extends BasePage {
 
 
     public boolean isOnWebTablesSubCategory() {
-        return isOnExpectedPage("https://demoqa.com/webtables");
+        return isCurrentPageUrlEqualTo("https://demoqa.com/webtables");
     }
 
     public void clickOnWebTablesSubCategory() {

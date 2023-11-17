@@ -29,7 +29,7 @@ public class RadioButtonPage extends BasePage {
     }
 
     public boolean isOnCheckBoxSubCategory() {
-        return isOnExpectedPage("https://demoqa.com/radio-button");
+        return isCurrentPageUrlEqualTo("https://demoqa.com/radio-button");
     }
 
     public void clickOnTextRadioButtonCategory() {

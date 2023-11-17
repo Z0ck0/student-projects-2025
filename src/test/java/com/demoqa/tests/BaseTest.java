@@ -11,6 +11,9 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 
 import java.time.Duration;
+import java.util.logging.Logger;
+
+import static com.demoqa.utilities.CustomLogger.logger;
 
 public class BaseTest {
     // region WebDriver, WebDriverWait, and Actions Declaration

@@ -179,7 +179,7 @@ public abstract class BasePage {
 
     // -----------------------------------------------------------------------------------------------------------------
 
-    public boolean isOnExpectedPage(String expectedUrl) {
+    public boolean isCurrentPageUrlEqualTo(String expectedUrl) {
         try {
             // Get the actual URL
             wait.until(ExpectedConditions.urlToBe(expectedUrl));
