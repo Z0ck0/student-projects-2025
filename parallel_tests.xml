@@ -16,7 +16,8 @@
     <!-- Run Forms SubCategory Tests  -->
     <test name="Forms Tests">
         <classes>
-
+            <!-- Pending: These test classes will be developed and implemented as part of future iterations.
+            They serve as placeholders within the evolving project structure. -->
         </classes>
     </test>
 
@@ -24,7 +25,8 @@
     <!-- Run Alerts, Frame and Windows SubCategory Tests  -->
     <test name="Alerts, Frame and Windows Tests">
         <classes>
-
+            <!-- Pending: These test classes will be developed and implemented as part of future iterations.
+            They serve as placeholders within the evolving project structure. -->
         </classes>
     </test>
 
@@ -32,7 +34,8 @@
     <!-- Run Widgets SubCategory Tests  -->
     <test name="Widgets Tests">
         <classes>
-
+            <!-- Pending: These test classes will be developed and implemented as part of future iterations.
+            They serve as placeholders within the evolving project structure. -->
         </classes>
     </test>
 
@@ -40,7 +43,8 @@
     <!-- Run Interactions SubCategory Tests  -->
     <test name="Interactions Tests">
         <classes>
-
+            <!-- Pending: These test classes will be developed and implemented as part of future iterations.
+            They serve as placeholders within the evolving project structure. -->
         </classes>
     </test>
 
@@ -48,7 +52,8 @@
     <!-- Run Book Store Application SubCategory Tests  -->
     <test name="Book Store Application Tests">
         <classes>
-
+            <!-- Pending: These test classes will be developed and implemented as part of future iterations.
+            They serve as placeholders within the evolving project structure. -->
         </classes>
     </test>
 </suite>
