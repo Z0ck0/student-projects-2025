@@ -1,5 +1,6 @@
 package com.demoqa.pages;
 
+import com.demoqa.utilities.LoggerUtil;
 import org.jetbrains.annotations.NotNull;
 import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
@@ -19,24 +20,39 @@ public abstract class BasePage {
     protected WebDriverWait wait;
     protected Actions actions;
 
-
     public BasePage(WebDriver driver, WebDriverWait wait) {
         this.driver = driver;
         this.wait = wait;
+        this.actions = new Actions(driver);
         PageFactory.initElements(driver, this);
     }
 
 
-    // Create a helper method for waiting until an element is visible
+    // Helper method for waiting until an element is visible
     protected void waitUntilElementIsVisible(WebElement webElement) {
-        wait.until(ExpectedConditions.visibilityOf(webElement));
+        try {
+            wait.until(ExpectedConditions.refreshed(ExpectedConditions.visibilityOf(webElement)));
+        } catch (StaleElementReferenceException e) {
+            LoggerUtil.warning("Stale element reference encountered. Refreshing and retrying...");
+            wait.until(ExpectedConditions.refreshed(ExpectedConditions.visibilityOf(webElement)));
+        }
     }
 
 
 
-    // region 1.    Basic Browser Operations (get/navigateURL, getTitle/Url)
+    // region 1.    Basic Browser Operations (Get Methods and Navigation)
     public void getUrl(String url) {
         driver.get(url);
+    }
+
+    // Retrieves and returns the title of the current web page.
+    public void getTitle() {
+        driver.getTitle();
+    }
+
+    // Retrieves and returns the current URL of the web page.
+    public void getCurrentUrl() {
+        driver.getCurrentUrl();
     }
     // -----------------------------------------------------------------------------------------------------------------
 
@@ -61,18 +77,6 @@ public abstract class BasePage {
                 driver.navigate().forward();
             }
             // @formatter:on
-    // -----------------------------------------------------------------------------------------------------------------
-
-    // Retrieves and returns the title of the current web page.
-    public void getTitle() {
-        driver.getTitle();
-    }
-    // -----------------------------------------------------------------------------------------------------------------
-
-    // Retrieves and returns the current URL of the web page.
-    public void getCurrentUrl() {
-        driver.getCurrentUrl();
-    }
     // endregion
 
 
@@ -148,7 +152,7 @@ public abstract class BasePage {
     // endregion
 
 
-    // region 4.    Boolean Handling: (isEnabled, isDisplayed, isSelected, isClickable, isChecked, isTextPresentInElement)
+    // region 4.    Element validation: (isEnabled, isDisplayed, isSelected, isClickable, isChecked, isTextPresentInElement)
 
     public boolean isElementEnabled(@NotNull WebElement webElement) {
         waitUntilElementIsVisible(webElement);
@@ -246,18 +250,15 @@ public abstract class BasePage {
         select.selectByVisibleText(text);
     }
 
-    // -----------------------------------------------------------------------------------------------------------------
     public void selectOptionByValue(WebElement dropdown, String value) {
         Select select = new Select(dropdown);
         select.selectByValue(value);
     }
 
-    // -----------------------------------------------------------------------------------------------------------------
-    public void selectOptionByIndex(WebElement dropdown, int index) {
+     public void selectOptionByIndex(WebElement dropdown, int index) {
         Select select = new Select(dropdown);
         select.selectByIndex(index);
     }
-    // -----------------------------------------------------------------------------------------------------------------
 
     // - deselectAllOptionsInDropdown(Select select): Deselect all selected options in the dropdown.
     // - deselectOptionInDropdownByIndex(Select select, int index): Deselect an option by index (1).
@@ -278,26 +279,77 @@ public abstract class BasePage {
         ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", element);
     }
 
-
+    public void scrollToTopOfPage() {
+        ((JavascriptExecutor) driver).executeScript("window.scrollTo(0, 0);");
+    }
     //endregion
 
 
-    // region 8.    Frame Handling:
+    // region   8.    Frame Handling:
+        // included Error Handling in case the frame switching operation fails.
+        // Added logging statements to indicate when the frame switching occurs.
+    public void switchToFrameByIndex(int index) {
+        try {
+            driver.switchTo().frame(index);
+            LoggerUtil.info("Switched to frame with index: " + index);
+        } catch (NoSuchFrameException e) {
+            LoggerUtil.error("Frame with index " + index + " not found", e);
+            // Handle or throw an exception as appropriate for your scenario
+        }
+    }
 
+    public void switchToFrameByStringName(String name) {
+        try {
+            driver.switchTo().frame(name);
+            LoggerUtil.info("Switched to frame with name: " + name);
+        } catch (NoSuchFrameException e) {
+            LoggerUtil.error("Frame with name " + name + " not found: ", e);
+            // Handle or throw an exception as appropriate for your scenario
+        }
+    }
 
-    //endregion
+    public void switchToFrameByWebElement(WebElement webElement) {
+        try {
+            driver.switchTo().frame(webElement);
+            LoggerUtil.info("Switched to frame with WebElement: " + webElement);
+        } catch (NoSuchFrameException e) {
+            LoggerUtil.error("Frame with WebElement " + webElement + " not found: ", e);
+            // Handle or throw an exception as appropriate for your scenario
+        }
+    }
+
+    public void switchToDefaultFrameContent() {
+        driver.switchTo().defaultContent();
+        LoggerUtil.info("Switched to default content");
+    }
+
+// endregion
 
 
     // region 9.    Alert Handling:
+    public void alertGetText() {
+        driver.switchTo().alert().getText();
+    }
 
+    public void alertAccept() {
+        driver.switchTo().alert().accept();
+    }
+
+    // Dismiss an alert dialog
+    public void alertDismiss() {
+        driver.switchTo().alert().dismiss();
+    }
+
+    public void alertSendKeys() {
+        driver.switchTo().alert().sendKeys("text");
+    }
 
     //endregion
 
 
-    // region 10.    Browser Tab and Window Management:
+    // region 10.   Windows and Tabs Handling
 
 
     //endregion
-
 }
 

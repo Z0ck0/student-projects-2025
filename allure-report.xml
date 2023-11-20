@@ -2,10 +2,12 @@
 <suite name="DemoQAAutomatedUITesting">
     <test name="Demo QA Automated UI Testing">
         <classes>
-            <class name="com.demoqa.tests.elementsTests.RadioButtonTest" />
-            <class name="com.demoqa.tests.elementsTests.CheckBoxTest" />
-            <class name="com.demoqa.tests.elementsTests.TextBoxTest" />
-            <class name="com.demoqa.tests.elementsTests.WebTablesTest" />
+            <class name="com.demoqa.tests.elementsTests.TextBoxTest"/>
+            <class name="com.demoqa.tests.elementsTests.CheckBoxTest"/>
+            <class name="com.demoqa.tests.elementsTests.RadioButtonTest"/>
+            <class name="com.demoqa.tests.elementsTests.WebTablesTest"/>
+            <class name="com.demoqa.tests.elementsTests.ButtonsTest"/>
+            <class name="com.demoqa.tests.elementsTests.LinksTest"/>
         </classes>
     </test>
 </suite>

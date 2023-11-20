@@ -1,7 +1,7 @@
 package com.demoqa.tests.elementsTests;
 
 import com.demoqa.tests.BaseTest;
-import com.demoqa.utilities.CustomLogger;
+import com.demoqa.utilities.LoggerUtil;
 import com.demoqa.utilities.DateTimeUtils;
 import org.testng.Assert;
 import org.testng.annotations.Test;
@@ -11,14 +11,20 @@ import java.util.Date;
 
 public class WebTablesTest extends BaseTest {
 
-    @Test(priority = 2)
+    @Test(groups = "regression")
     public void verifyTotalRowsInWebTable() {
-        webTablesPage.navigateToWebTablesSubCategory();
-        System.out.println("The total number of rows in the table is: " + webTablesPage.getTotalRowsInTable());
-        Assert.assertEquals(webTablesPage.getTotalRowsInTable(), 10);
+        LoggerUtil.info("Executing verifyTotalRowsInWebTable test...");
+        try {
+            webTablesPage.navigateToWebTablesSubCategory();
+            System.out.println("The total number of rows in the table is: " + webTablesPage.getTotalRowsInTable());
+            Assert.assertEquals(webTablesPage.getTotalRowsInTable(), 10);
 
-        // Call the formatTimestamp method and print the result
-        System.out.println("Timestamp of Test Execution: " + DateTimeUtils.formatTimestamp(new Date()));
+            // Call the formatTimestamp method and print the result
+            System.out.println("Timestamp of Test Execution: " + DateTimeUtils.formatTimestamp(new Date()));
+        } catch (Exception e) {
+            LoggerUtil.error("An error occurred during the test.", e);
+            throw e; // Rethrow the exception to fail the test
+        }
     }
 
 
@@ -58,7 +64,7 @@ public class WebTablesTest extends BaseTest {
                     "IT");
             webTablesPage.clickOnRegistrationFormSubmitButton();
         } catch (Exception e) {
-            CustomLogger.error("An error occurred during the test.", e);
+            LoggerUtil.error("An error occurred during the test.", e);
             // Handle the exception or rethrow it
         }
 

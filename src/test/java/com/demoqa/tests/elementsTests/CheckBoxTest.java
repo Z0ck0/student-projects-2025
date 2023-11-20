@@ -2,8 +2,7 @@ package com.demoqa.tests.elementsTests;
 
 import com.demoqa.tests.BaseTest;
 import com.demoqa.utilities.AssertionUtils;
-import com.demoqa.utilities.DateTimeUtils;
-import com.demoqa.utilities.RandomDataGenerator;
+import com.demoqa.utilities.LoggerUtil;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
@@ -70,6 +69,7 @@ public class CheckBoxTest extends BaseTest {
 
     private void verifyToggle(String toggleName, String... checkboxes) {
         // Expand the toggle
+
         checkBoxPage.clickToggle(toggleName);
 
         // Assert that the specified checkboxes are visible

@@ -2,6 +2,7 @@ package com.demoqa.tests.elementsTests;
 
 import com.demoqa.tests.BaseTest;
 import com.demoqa.utilities.DateTimeUtils;
+import com.demoqa.utilities.LoggerUtil;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
@@ -9,7 +10,7 @@ import java.util.Date;
 
 public class TextBoxTest extends BaseTest {
 
-    @Test (groups = {"smoke", "regression"}, priority = 2)
+    @Test(groups = "regression", priority = 2)
     // Expected Result: The information provided (Full name, Email, Current address, Permanent address) is displayed correctly in the output element.
     public void testValidDataSubmission() throws InterruptedException {
         homePage.clickElementsNavigationBar();
@@ -17,7 +18,6 @@ public class TextBoxTest extends BaseTest {
 
         Assert.assertTrue(textBoxPage.isOnTextBoxSubCategory(), "Text Box Subcategory is not displayed.");
         Assert.assertEquals(textBoxPage.getCurrentPageTitle(), "DEMOQA");
-
 
         // Input valid data into the form fields
         textBoxPage.fillOutTextBoxForm(
@@ -30,20 +30,24 @@ public class TextBoxTest extends BaseTest {
         textBoxPage.scrollToOutputBlockDisplayed();
 
         // Check the displayed information in the output fields
-        Assert.assertEquals(textBoxPage.getNameTextFromOutputField(), "Name:"+getRandomFullName,
+        Assert.assertEquals(textBoxPage.getNameTextFromOutputField(), "Name:" + getRandomFullName,
                 "The displayed Full Name in the output field doesn't match the expected value.");
-        Assert.assertEquals(textBoxPage.getEmailTextFromOutputField(), "Email:"+getRandomEmail,
+        Assert.assertEquals(textBoxPage.getEmailTextFromOutputField(), "Email:" + getRandomEmail,
                 "The displayed Email address in the output Email field doesn't match the expected value.");
-        Assert.assertEquals(textBoxPage.getCurrentAddressOutputField(), "Current Address :"+getRandomAddress,
+        Assert.assertEquals(textBoxPage.getCurrentAddressOutputField(), "Current Address :" + getRandomAddress,
                 "The displayed Current Address in the output Current Address field doesn't match the expected value.");
-        Assert.assertEquals(textBoxPage.getPermanentAddressOutputField(), "Permananet Address :"+getRandomAddress,
+        Assert.assertEquals(textBoxPage.getPermanentAddressOutputField(), "Permananet Address :" + getRandomAddress,
                 "The displayed Permanent Address in the output Permanent Address field doesn't match the expected value.");
 
-        // Call the formatTimestamp method and print the result
-        System.out.println("Timestamp of Test Execution: " + DateTimeUtils.formatTimestamp(new Date()));
+        // Log the timestamp of the test execution using LoggerUtil for informational purposes,
+        // including the current date and time formatted by DateTimeUtils.
+        LoggerUtil.info("Test Method: " + Thread.currentThread().getStackTrace()[1].getMethodName() +
+                "\n - Timestamp of Test Execution: " + DateTimeUtils.formatTimestamp(new Date()));
+
+
     }
 
-    @Test (groups = {"regression"}, priority = 1)
+    @Test(groups = "regression", priority = 1)
     // Expected Result: Checking if special characters are accepted in the form submission.
     public void testSpecialCharsFormAcceptance() {
         homePage.clickElementsNavigationBar();
@@ -68,11 +72,16 @@ public class TextBoxTest extends BaseTest {
         textBoxPage.clickSubmitButton();
         Assert.assertEquals(textBoxPage.getPermanentAddressOutputField(), "Permananet Address :!@!&^%%^#$@#$^#!",
                 "The displayed Permanent Address in the output Permanent Address field doesn't match the expected value.");
+
+        // Log the timestamp of the test execution using LoggerUtil for informational purposes,
+        // including the current date and time formatted by DateTimeUtils.
+        LoggerUtil.info("Test Method: " + Thread.currentThread().getStackTrace()[1].getMethodName() +
+                "\n - Timestamp of Test Execution: " + DateTimeUtils.formatTimestamp(new Date()));
     }
 
-    @Test (groups = {"smoke"}, priority = 3)
+    @Test(groups = "smoke", priority = 3)
     // Expected Result: Ensure that no visible change occurs after an empty submission.
-    public void testNoVisibleChangeAfterEmptySubmit(){
+    public void testNoVisibleChangeAfterEmptySubmit() {
         homePage.clickElementsNavigationBar();
         Assert.assertTrue(textBoxPage.isCurrentPageUrlEqualTo("https://demoqa.com/elements"));
 
@@ -90,10 +99,16 @@ public class TextBoxTest extends BaseTest {
         // Assert that the page source has changed (differences between initial and updated)
         Assert.assertNotEquals(initialPageSource, updatedPageSource,
                 "There should be changes in the page source after clicking the 'Submit' button.");
+
+
+        // Log the timestamp of the test execution using LoggerUtil for informational purposes,
+        // including the current date and time formatted by DateTimeUtils.
+        LoggerUtil.info("Test Method: " + Thread.currentThread().getStackTrace()[1].getMethodName() +
+                "\n - Timestamp of Test Execution: " + DateTimeUtils.formatTimestamp(new Date()));
     }
 
-    @Test (groups = {"smoke"}, priority = 4)
-    public void testValidAndInvalidEmailSubmission(){
+    @Test(groups = "regression", priority = 4)
+    public void testValidAndInvalidEmailSubmission() {
         // Expected Result: Verify the behavior of email submission with valid and invalid email formats.
         homePage.clickElementsNavigationBar();
         textBoxPage.clickOnTextBoxSubCategory();
@@ -103,7 +118,7 @@ public class TextBoxTest extends BaseTest {
         textBoxPage.clickSubmitButton();
 
         // Assert that the displayed email in the output field matches the expected value
-        Assert.assertEquals(textBoxPage.getEmailTextFromOutputField(), "Email:"+getRandomEmail,
+        Assert.assertEquals(textBoxPage.getEmailTextFromOutputField(), "Email:" + getRandomEmail,
                 "The displayed Email address in the output Email field doesn't match the expected value.");
 
         // Clear the email field and submit
@@ -117,5 +132,10 @@ public class TextBoxTest extends BaseTest {
         // Assert that the element is not displayed (invisibility of the element)
         Assert.assertTrue(textBoxPage.isEmailNotDisplayedInOutputBlock(),
                 "The element should not be displayed.");
+
+        // Log the timestamp of the test execution using LoggerUtil for informational purposes,
+        // including the current date and time formatted by DateTimeUtils.
+        LoggerUtil.info("Test Method: " + Thread.currentThread().getStackTrace()[1].getMethodName() +
+                "\n - Timestamp of Test Execution: " + DateTimeUtils.formatTimestamp(new Date()));
     }
 }

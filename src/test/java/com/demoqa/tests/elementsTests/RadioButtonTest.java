@@ -11,7 +11,7 @@ public class RadioButtonTest extends BaseTest {
     @Test (priority = 1)
     public void testSuccessMessageForYesSelection(){
         homePage.clickElementsNavigationBar();
-        radioButtonPage.clickOnTextRadioButtonCategory();
+        radioButtonPage.clickOnRadioButtonSubCategory();
         radioButtonPage.clickOnYesRadioButton();
         Assert.assertTrue(radioButtonPage.isOnCheckBoxSubCategory(), "Text Box Subcategory is not displayed.");
 
@@ -22,7 +22,7 @@ public class RadioButtonTest extends BaseTest {
     @Test (priority = 2)
     public void testSuccessMessageForImpressiveSelection(){
         homePage.clickElementsNavigationBar();
-        radioButtonPage.clickOnTextRadioButtonCategory();
+        radioButtonPage.clickOnRadioButtonSubCategory();
         radioButtonPage.clickOnImpressiveRadioButton();
         Assert.assertTrue(radioButtonPage.isOnCheckBoxSubCategory(), "Text Box Subcategory is not displayed.");
         Assert.assertEquals(radioButtonPage.getSuccessMessageForImpressiveSelection(), "Impressive");
@@ -32,7 +32,7 @@ public class RadioButtonTest extends BaseTest {
     @Test (priority = 3)
     public void testNoRadioButtonIsDisabled(){
         homePage.clickElementsNavigationBar();
-        radioButtonPage.clickOnTextRadioButtonCategory();
+        radioButtonPage.clickOnRadioButtonSubCategory();
         Assert.assertTrue(radioButtonPage.isOnCheckBoxSubCategory(), "Text Box Subcategory is not displayed.");
         Assert.assertFalse(radioButtonPage.isRadioButtonNoEnabled(), "Radio button is not enabled as expected");
     }

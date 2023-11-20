@@ -26,6 +26,7 @@ public class HomePage extends BasePage {
 
 
     public void clickElementsNavigationBar() {
+        scrollToElementIntoView(elementsSection);
         clickElement(elementsSection);
     }
 

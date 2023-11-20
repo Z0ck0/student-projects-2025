@@ -11,9 +11,6 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 
 import java.time.Duration;
-import java.util.logging.Logger;
-
-import static com.demoqa.utilities.CustomLogger.logger;
 
 public class BaseTest {
     // region WebDriver, WebDriverWait, and Actions Declaration
@@ -56,7 +53,7 @@ public class BaseTest {
     public CheckBoxPage checkBoxPage;
     public DynamicPropertiesPage dynamicPropertiesPage;
     public LinksPage linksPage;
-     public RadioButtonPage radioButtonPage;
+    public RadioButtonPage radioButtonPage;
     public TextBoxPage textBoxPage;
     public UploadAndDownloadPage uploadAndDownloadPage;
     public WebTablesPage webTablesPage;
@@ -84,7 +81,11 @@ public class BaseTest {
         radioButtonPage = new RadioButtonPage(driver, wait);
         textBoxPage = new TextBoxPage(driver, wait);
         uploadAndDownloadPage = new UploadAndDownloadPage(driver, wait);
+
+        // Log the initialization of webTablesPage
+        System.out.println("Initializing WebTablesPage");
         webTablesPage = new WebTablesPage(driver, wait, homePage);
+        System.out.println("WebTablesPage initialized successfully");
 
 
         driver.get("https://demoqa.com/");

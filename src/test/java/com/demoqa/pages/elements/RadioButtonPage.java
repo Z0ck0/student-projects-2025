@@ -32,7 +32,7 @@ public class RadioButtonPage extends BasePage {
         return isCurrentPageUrlEqualTo("https://demoqa.com/radio-button");
     }
 
-    public void clickOnTextRadioButtonCategory() {
+    public void clickOnRadioButtonSubCategory() {
         clickElement(radioButtonSectionLink);
     }
 
