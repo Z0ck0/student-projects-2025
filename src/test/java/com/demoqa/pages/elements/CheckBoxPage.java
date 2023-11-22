@@ -40,6 +40,7 @@ CheckBoxPage extends BasePage {
             private WebElement notesCheckbox;
             @FindBy(xpath = "//*[contains(text(), 'Commands')]")
             private WebElement commandsCheckbox;
+    //*[contains(text(), 'Commands')]
 
         @FindBy(xpath= "//*[@class='rct-title'][contains(text(), 'Documents')]")
         private WebElement documentsCheckbox;
@@ -101,8 +102,6 @@ CheckBoxPage extends BasePage {
     public boolean isCheckedCheckboxesMessageHidden(){
         return wait.until(ExpectedConditions.invisibilityOf(displaySelectedCheckboxes));
     }
-
-
 
     public void clickToggle(String elementName) {
         switch (elementName) {

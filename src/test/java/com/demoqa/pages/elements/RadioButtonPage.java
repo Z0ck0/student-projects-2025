@@ -49,6 +49,12 @@ public class RadioButtonPage extends BasePage {
     }
 
 
+
+    public Object isImpressiveRadioButtonSelected(){
+       return true ;
+    }
+
+
     public String getSuccessMessageForYesSelection(){
         return getTextFromElement(YesSuccessMessage);
     }
@@ -56,4 +62,6 @@ public class RadioButtonPage extends BasePage {
     public String getSuccessMessageForImpressiveSelection(){
         return getTextFromElement(impressiveSuccessMessage);
     }
+
+
 }

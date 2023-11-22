@@ -39,7 +39,6 @@ public abstract class BasePage {
     }
 
 
-
     // region 1.    Basic Browser Operations (Get Methods and Navigation)
     public void getUrl(String url) {
         driver.get(url);
@@ -82,8 +81,12 @@ public abstract class BasePage {
 
     // region 2.    Basic Elements Operations (click, submit, clear, sendKeys, getText)
     public void clickElement(WebElement webElement) {
-        waitUntilElementIsVisible(webElement);
-        webElement.click();
+        try {
+            waitUntilElementIsVisible(webElement);
+            webElement.click();
+        } catch (TimeoutException e) {
+            throw new TimeoutException(e);
+        }
     }
     // -----------------------------------------------------------------------------------------------------------------
 
@@ -245,19 +248,58 @@ public abstract class BasePage {
 
 
     // region 5.    Dropdown Handling (selectByIndex/ByVisibleText/ByValue, deselectAllI/ByIndex/ByVisibleText/ByValue)
+    // Selects the specified option by its Text from the given dropdown, handling potential exceptions and providing detailed error reporting.
     public void selectOptionByVisibleText(WebElement dropdown, String text) {
-        Select select = new Select(dropdown);
-        select.selectByVisibleText(text);
+        try {
+            Select select = new Select(dropdown);
+            select.selectByVisibleText(text);
+        } catch (NoSuchElementException e) {
+            // Log the exception message for better error reporting
+            LoggerUtil.error("Element not found in the dropdown: " + e.getMessage(), e);
+            // Rethrow a more specific exception to indicate the nature of the issue
+            throw new RuntimeException("Failed to select option by value: " + text, e);
+        } catch (Exception e) {
+            // Log the exception message for better error reporting
+            LoggerUtil.error("An unexpected error occurred: " + e.getMessage(), e);
+            // Rethrow the original exception
+            throw new RuntimeException(e);
+        }
     }
 
+    // Selects the specified option by its value from the given dropdown, handling potential exceptions and providing detailed error reporting.
     public void selectOptionByValue(WebElement dropdown, String value) {
-        Select select = new Select(dropdown);
-        select.selectByValue(value);
+        try {
+            Select select = new Select(dropdown);
+            select.selectByValue(value);
+        } catch (NoSuchElementException e) {
+            // Log the exception message for better error reporting
+            LoggerUtil.error("Element not found in the dropdown: " + e.getMessage(), e);
+            // Rethrow a more specific exception to indicate the nature of the issue
+            throw new RuntimeException("Failed to select option by value: " + value, e);
+        } catch (Exception e) {
+            // Log the exception message for better error reporting
+            LoggerUtil.error("An unexpected error occurred: " + e.getMessage(), e);
+            // Rethrow the original exception
+            throw new RuntimeException(e);
+        }
     }
 
-     public void selectOptionByIndex(WebElement dropdown, int index) {
-        Select select = new Select(dropdown);
-        select.selectByIndex(index);
+    // Selects the specified option by its Index from the given dropdown, handling potential exceptions and providing detailed error reporting.
+    public void selectOptionByIndex(WebElement dropdown, int index) {
+        try {
+            Select select = new Select(dropdown);
+            select.selectByIndex(index);
+        } catch (NoSuchElementException e) {
+            // Log the exception message for better error reporting
+            LoggerUtil.error("Element not found in the dropdown: " + e.getMessage(), e);
+            // Rethrow a more specific exception to indicate the nature of the issue
+            throw new RuntimeException("Failed to select option by value: " + index, e);
+        } catch (Exception e) {
+            // Log the exception message for better error reporting
+            LoggerUtil.error("An unexpected error occurred: " + e.getMessage(), e);
+            // Rethrow the original exception
+            throw new RuntimeException(e);
+        }
     }
 
     // - deselectAllOptionsInDropdown(Select select): Deselect all selected options in the dropdown.
@@ -286,8 +328,8 @@ public abstract class BasePage {
 
 
     // region   8.    Frame Handling:
-        // included Error Handling in case the frame switching operation fails.
-        // Added logging statements to indicate when the frame switching occurs.
+    // included Error Handling in case the frame switching operation fails.
+    // Added logging statements to indicate when the frame switching occurs.
     public void switchToFrameByIndex(int index) {
         try {
             driver.switchTo().frame(index);
@@ -327,23 +369,50 @@ public abstract class BasePage {
 
 
     // region 9.    Alert Handling:
-    public void alertGetText() {
-        driver.switchTo().alert().getText();
+    public String alertGetText() {
+        try {
+            return driver.switchTo().alert().getText();
+        } catch (Exception e) {
+            // Log the exception message and stack trace for better error reporting
+            LoggerUtil.error("Failed to retrieve text from alert: " + e.getMessage(), e);
+            // Rethrow the original exception
+            throw new RuntimeException(e);
+        }
     }
 
     public void alertAccept() {
-        driver.switchTo().alert().accept();
+        try {
+            driver.switchTo().alert().accept();
+        } catch (Exception e) {
+            // Log the exception message and stack trace for better error reporting
+            LoggerUtil.error("Failed to accept the alert: " + e.getMessage(), e);
+            // Rethrow the original exception
+            throw new RuntimeException(e);
+        }
     }
 
     // Dismiss an alert dialog
     public void alertDismiss() {
-        driver.switchTo().alert().dismiss();
+        try {
+            driver.switchTo().alert().dismiss();
+        } catch (Exception e) {
+            // Log the exception message and stack trace for better error reporting
+            LoggerUtil.error("Failed to dismiss the alert: " + e.getMessage(), e);
+            // Rethrow the original exception
+            throw new RuntimeException(e);
+        }
     }
 
-    public void alertSendKeys() {
-        driver.switchTo().alert().sendKeys("text");
+    public void alertSendKeys(String keysToSend) {
+        try {
+            driver.switchTo().alert().sendKeys(keysToSend);
+        } catch (Exception e) {
+            // Log the exception message and stack trace for better error reporting
+            LoggerUtil.error("Failed to send Keys the alert: " + e.getMessage(), e);
+            // Rethrow the original exception
+            throw new RuntimeException(e);
+        }
     }
-
     //endregion
 
 

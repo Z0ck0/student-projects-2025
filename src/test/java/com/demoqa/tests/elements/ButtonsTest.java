@@ -1,4 +1,4 @@
-package com.demoqa.tests.elementsTests;
+package com.demoqa.tests.elements;
 
 import com.demoqa.tests.BaseTest;
 import org.testng.Assert;
@@ -6,7 +6,7 @@ import org.testng.annotations.Test;
 
 public class ButtonsTest extends BaseTest {
     @Test (priority = 1)
-    public void verifyDoubleClickButtonFunctionality() throws InterruptedException {
+    public void verifyDoubleClickButtonFunctionality(){
         homePage.clickElementsNavigationBar();
         buttonsPage.clickOnButtonsSubCategory();
 

@@ -1,4 +1,4 @@
-package com.demoqa.tests.elementsTests;
+package com.demoqa.tests.elements;
 
 import com.demoqa.tests.BaseTest;
 import com.demoqa.utilities.LoggerUtil;
@@ -11,7 +11,7 @@ import java.util.Date;
 
 public class WebTablesTest extends BaseTest {
 
-    @Test(groups = "regression")
+    @Test(priority = 2, groups = "regression")
     public void verifyTotalRowsInWebTable() {
         LoggerUtil.info("Executing verifyTotalRowsInWebTable test...");
         try {

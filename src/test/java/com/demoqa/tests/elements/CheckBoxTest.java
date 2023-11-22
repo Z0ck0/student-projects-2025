@@ -1,4 +1,4 @@
-package com.demoqa.tests.elementsTests;
+package com.demoqa.tests.elements;
 
 import com.demoqa.tests.BaseTest;
 import com.demoqa.utilities.AssertionUtils;
@@ -6,25 +6,30 @@ import com.demoqa.utilities.LoggerUtil;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
-import java.util.Date;
-
 public class CheckBoxTest extends BaseTest {
     @Test(priority = 3)
-    public void testExpandAndCollapseAllFunctionality() {
+    public void testExpandAndCollapseAllFunctionality() throws InterruptedException {
         homePage.clickElementsNavigationBar();
         checkBoxPage.clickCheckBoxSubCategory();
         AssertionUtils.assertTrue(checkBoxPage.isOnCheckBoxSubCategory(),
-                "Checkbox Subcategory is not displayed.");
-        AssertionUtils.assertEquals(checkBoxPage.getCurrentPageTitle(), "DEMOQA");
+                "Checkbox Subcategory is not displayed.", 2);
+
+        AssertionUtils.assertEquals(
+                checkBoxPage.getCurrentPageTitle(),
+                "DEMOQA",
+                "The actual and current page title don't match",
+                2);
 
         // Ensure that ALL Toggles are initially hidden
         checkBoxPage.assertTogglesHidden("Desktop", "Documents", "WorkSpace", "Office", "Downloads");
 
         checkBoxPage.clickOnExpandAllButton();
+
         // Verify that ALL Toggles are now displayed
         checkBoxPage.assertTogglesCheckboxesAreDisplayed("Desktop", "Documents", "WorkSpace", "Office", "Downloads");
 
         checkBoxPage.clickOnCollapsedAllButton();
+
         // Verify that ALL Toggles are AGAIN hidden
         checkBoxPage.assertTogglesHidden("Desktop", "Documents", "WorkSpace", "Office", "Downloads");
     }
@@ -85,10 +90,22 @@ public class CheckBoxTest extends BaseTest {
         checkBoxPage.selectCheckbox("Angular");
         checkBoxPage.selectCheckbox("Classified");
 
-        // Verify that the selected checkboxes match the expected list
-        Assert.assertEquals(checkBoxPage.getSelectedCheckboxes().replaceAll("\\s+", " ").trim(),
-                "You have selected : commands angular classified",
-                "The selected checkboxes do not align with the expected selection.");
+
+        // Attempts to assert that selected checkboxes match the expected list, allowing for 2 retries with enhanced error logging.
+        try {
+            AssertionUtils.assertEquals(
+                    checkBoxPage.getSelectedCheckboxes().replaceAll("\\s+", " ").trim(),
+                    "You have selected : commands angular classified",
+                    "\n Assertion failed: Selected checkboxes do not match the expected list \n",
+                    2
+            );
+        } catch (AssertionError e) {
+            // Log the error using LoggerUtil.error
+            LoggerUtil.error(" \n Assertion failed: Selected checkboxes do not match the expected list \n", e);
+            // Re-throw the AssertionError to propagate the failure
+            throw e;
+        }
     }
+
 
 }

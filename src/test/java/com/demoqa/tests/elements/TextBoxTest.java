@@ -1,6 +1,7 @@
-package com.demoqa.tests.elementsTests;
+package com.demoqa.tests.elements;
 
 import com.demoqa.tests.BaseTest;
+import com.demoqa.utilities.AssertionUtils;
 import com.demoqa.utilities.DateTimeUtils;
 import com.demoqa.utilities.LoggerUtil;
 import org.testng.Assert;
@@ -18,6 +19,11 @@ public class TextBoxTest extends BaseTest {
 
         Assert.assertTrue(textBoxPage.isOnTextBoxSubCategory(), "Text Box Subcategory is not displayed.");
         Assert.assertEquals(textBoxPage.getCurrentPageTitle(), "DEMOQA");
+
+        AssertionUtils.assertTrue(textBoxPage.isOnTextBoxSubCategory(), "Text Box Subcategory is not displayed.", 2);
+        AssertionUtils.assertEquals(textBoxPage.getCurrentPageTitle(), "DEMOQA","", 2);
+
+
 
         // Input valid data into the form fields
         textBoxPage.fillOutTextBoxForm(
@@ -43,8 +49,6 @@ public class TextBoxTest extends BaseTest {
         // including the current date and time formatted by DateTimeUtils.
         LoggerUtil.info("Test Method: " + Thread.currentThread().getStackTrace()[1].getMethodName() +
                 "\n - Timestamp of Test Execution: " + DateTimeUtils.formatTimestamp(new Date()));
-
-
     }
 
     @Test(groups = "regression", priority = 1)

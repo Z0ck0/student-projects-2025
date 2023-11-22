@@ -9,6 +9,8 @@ import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Optional;
+import org.testng.annotations.Parameters;
 
 import java.time.Duration;
 
@@ -32,6 +34,9 @@ public class BaseTest {
     public String getRandomCellNumber;
     public String getRandomAddress;
 
+
+   // public RandomDataGenerator randomDataGenerator;
+
     public BaseTest() {
         // Generate random data once for the entire test class.
         getRandomEmail = RandomDataGenerator.getRandomEmail();
@@ -43,7 +48,6 @@ public class BaseTest {
         getRandomCellNumber = RandomDataGenerator.getRandomCellNumber();
         getRandomAddress  = RandomDataGenerator.getRandomAddress();
     }
-
 
 
     // region Page Object Declaration
@@ -58,15 +62,20 @@ public class BaseTest {
     public UploadAndDownloadPage uploadAndDownloadPage;
     public WebTablesPage webTablesPage;
 
-    public RandomDataGenerator randomDataGenerator;
 
 
 
+    @Parameters("browser")
     @BeforeMethod
-    public void setUp() {
+    public void setUp(@Optional("chrome") String browserName) {
+        // If the TestNG parameter is not provided, use the default browser (Chrome)
+        if (browserName == null || browserName.isEmpty()) {
+            browserName = "chrome";
+        }
+
         webDriverManager = new WebDriverManager();
+
         // region Initiate the WebDriver, WebDriverWait, and Actions Initialization
-        String browserName = "chrome";
         driver = webDriverManager.initiateDriver(browserName);
         wait = new WebDriverWait(driver, Duration.ofSeconds(10));
         actions = new Actions(driver);
@@ -81,12 +90,7 @@ public class BaseTest {
         radioButtonPage = new RadioButtonPage(driver, wait);
         textBoxPage = new TextBoxPage(driver, wait);
         uploadAndDownloadPage = new UploadAndDownloadPage(driver, wait);
-
-        // Log the initialization of webTablesPage
-        System.out.println("Initializing WebTablesPage");
         webTablesPage = new WebTablesPage(driver, wait, homePage);
-        System.out.println("WebTablesPage initialized successfully");
-
 
         driver.get("https://demoqa.com/");
         driver.manage().window().maximize();
