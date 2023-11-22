@@ -1,0 +1,4 @@
+<!-- This XML file should include test cases that utilize external data sources,
+such as CSV files or databases, to provide different test scenarios. Data-driven
+tests allow for efficient testing of multiple data combinations without the need to
+manually create separate test cases for each scenario. -->

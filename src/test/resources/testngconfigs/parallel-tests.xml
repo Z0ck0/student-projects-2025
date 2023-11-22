@@ -1,14 +1,15 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
-<suite name="Parallel Test Suite" parallel="classes" thread-count="6">
+<suite name="Parallel Test Suite" parallel="methods" thread-count="6">
+
     <!-- Run Elements SubCategory Tests  -->
     <test name="Elements Tests">
         <classes>
-            <class name="com.demoqa.tests.elementsTests.TextBoxTest"/>
-            <class name="com.demoqa.tests.elementsTests.CheckBoxTest"/>
-            <class name="com.demoqa.tests.elementsTests.RadioButtonTest"/>
-            <class name="com.demoqa.tests.elementsTests.WebTablesTest"/>
-            <class name="com.demoqa.tests.elementsTests.ButtonsTest"/>
-            <class name="com.demoqa.tests.elementsTests.LinksTest"/>
+            <class name="com.demoqa.tests.elements.TextBoxTest"/>
+            <class name="com.demoqa.tests.elements.CheckBoxTest"/>
+            <class name="com.demoqa.tests.elements.RadioButtonTest"/>
+            <class name="com.demoqa.tests.elements.WebTablesTest"/>
+            <class name="com.demoqa.tests.elements.ButtonsTest"/>
+            <class name="com.demoqa.tests.elements.LinksTest"/>
         </classes>
     </test>
 

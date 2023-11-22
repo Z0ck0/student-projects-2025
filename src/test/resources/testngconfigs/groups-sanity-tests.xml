@@ -1,0 +1,19 @@
+<!-- Sanity-tests.xml: Sanity tests are a subset of smoke tests that focus on the most basic and essential functionalities of the application.
+They are typically run before deploying the application to production to ensure that it is in a stable state.  -->
+
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="SanityTestSuite">
+       <!-- Run Smoke Tests -->
+    <test name="Sanity">
+        <groups>
+            <run>
+                <include name="smoke"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="com.demoqa.tests.elements.TextBoxTest"/>
+            <class name="com.demoqa.tests.elements.CheckBoxTest"/>
+            <class name="com.demoqa.tests.elements.RadioButtonTest"/>
+        </classes>
+    </test>
+</suite>

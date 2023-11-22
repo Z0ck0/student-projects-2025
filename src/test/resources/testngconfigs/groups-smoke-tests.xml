@@ -1,0 +1,16 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="SmokeTestSuite" parallel="methods" thread-count="6">
+       <!-- Run Smoke Tests -->
+    <test name="Smoke">
+        <groups>
+            <run>
+                <include name="smoke"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="com.demoqa.tests.elements.WebTablesTest"/>
+            <class name="com.demoqa.tests.elements.ButtonsTest"/>
+            <class name="com.demoqa.tests.elements.LinksTest"/>
+        </classes>
+    </test>
+</suite>
