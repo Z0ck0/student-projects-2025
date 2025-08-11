@@ -1,0 +1,465 @@
+# 📚 Template Guide - Test Automation Framework
+
+This guide provides comprehensive patterns, best practices, and examples for using the Test Automation Framework effectively.
+
+## 🏗️ Framework Architecture
+
+### Package Structure
+
+```
+src/test/java/com/testautomation/
+├── enums/           # Enums for browser types, severity levels, test types
+├── fixtures/        # Test data providers and fixtures
+├── pages/          # Page Object Model classes
+├── tests/          # Test classes
+│   ├── BaseTest.java           # Base test class with common setup
+│   └── examples/               # Example test implementations
+└── utilities/      # Utility classes for common operations
+```
+
+### Key Components
+
+- **BaseTest**: Common setup/teardown for all tests
+- **WebDriverManager**: Browser initialization and management
+- **Page Objects**: Encapsulated page interactions
+- **Utility Classes**: Reusable helper methods
+- **Allure Integration**: Beautiful test reporting
+
+## 📝 Writing Tests
+
+### 1. Basic Test Structure
+
+```java
+public class MyTest extends BaseTest {
+
+    @Test(description = "Test description")
+    @Epic("Epic Name")
+    @Feature("Feature Name")
+    @Story("Story Name")
+    @Severity(SeverityLevel.CRITICAL)
+    public void testMethodName() {
+        // Test implementation
+        driver.get("https://example.com");
+
+        // Assertions
+        Assert.assertEquals(driver.getTitle(), "Expected Title");
+    }
+}
+```
+
+### 2. Test Annotations
+
+#### Allure Annotations
+
+```java
+@Epic("User Management")           // High-level feature grouping
+@Feature("User Registration")       // Feature grouping
+@Story("Email Validation")         // User story grouping
+@Severity(SeverityLevel.CRITICAL)  // Test importance
+@Description("Detailed description") // Test description
+```
+
+#### TestNG Annotations
+
+```java
+@Test(description = "Test description")
+@Test(groups = {"smoke", "regression"})
+@Test(dependsOnMethods = "setupMethod")
+@Test(dataProvider = "testData")
+@BeforeMethod
+@AfterMethod
+@Parameters("browser")
+```
+
+### 3. Page Object Model
+
+#### Creating a Page Class
+
+```java
+public class LoginPage extends BasePage {
+
+    @FindBy(id = "username")
+    private WebElement usernameField;
+
+    @FindBy(id = "password")
+    private WebElement passwordField;
+
+    @FindBy(id = "login-button")
+    private WebElement loginButton;
+
+    public LoginPage(WebDriver driver) {
+        super(driver);
+    }
+
+    public void login(String username, String password) {
+        sendKeysToElement(usernameField, username);
+        sendKeysToElement(passwordField, password);
+        clickElement(loginButton);
+    }
+
+    public boolean isLoginFormDisplayed() {
+        return isElementDisplayed(usernameField);
+    }
+}
+```
+
+#### Using Page Objects in Tests
+
+```java
+@Test
+public void testLogin() {
+    LoginPage loginPage = new LoginPage(driver);
+
+    Assert.assertTrue(loginPage.isLoginFormDisplayed());
+    loginPage.login("testuser", "password");
+
+    // Verify login success
+    Assert.assertTrue(driver.getCurrentUrl().contains("dashboard"));
+}
+```
+
+## 🔧 Utility Usage
+
+### 1. Wait Utilities
+
+```java
+// Wait for element to be present
+WebElement element = WaitUtils.waitForElementPresent(driver, By.id("element"), 10);
+
+// Wait for element to be visible
+WebElement visibleElement = WaitUtils.waitForElementVisible(driver, By.className("visible"), 10);
+
+// Wait for element to be clickable
+WebElement clickableElement = WaitUtils.waitForElementClickable(driver, By.xpath("//button"), 10);
+
+// Wait for title to contain text
+boolean titleContains = WaitUtils.waitForTitleContains(driver, "Expected Title", 10);
+
+// Wait for URL to contain text
+boolean urlContains = WaitUtils.waitForUrlContains(driver, "expected-path", 10);
+```
+
+### 2. Screenshot Utilities
+
+```java
+// Take screenshot with custom name
+String screenshotPath = ScreenshotUtils.takeScreenshot(driver, "test-screenshot");
+
+// Take screenshot as bytes (for Allure attachment)
+byte[] screenshotBytes = ScreenshotUtils.takeScreenshotAsBytes(driver);
+
+// Clean up old screenshots (older than 7 days)
+ScreenshotUtils.cleanupOldScreenshots(7);
+```
+
+### 3. Random Data Generation
+
+```java
+// Generate random test data
+String randomEmail = RandomDataGenerator.getRandomEmail();
+String randomName = RandomDataGenerator.getRandomFirstName();
+String randomPhone = RandomDataGenerator.getRandomPhoneNumber();
+String randomAddress = RandomDataGenerator.getRandomAddress();
+```
+
+### 4. Configuration Management
+
+```java
+// Get configuration values
+String baseUrl = ConfigReader.getBaseUrl();
+String defaultBrowser = ConfigReader.getDefaultBrowser();
+boolean isHeadless = ConfigReader.isHeadless();
+int timeout = ConfigReader.getExplicitWait();
+```
+
+## 📊 Data-Driven Testing
+
+### 1. Using DataProvider
+
+```java
+@DataProvider(name = "loginData")
+public static Object[][] getLoginData() {
+    return new Object[][] {
+        {"user1@example.com", "password1"},
+        {"user2@example.com", "password2"},
+        {"user3@example.com", "password3"}
+    };
+}
+
+@Test(dataProvider = "loginData")
+public void testLoginWithData(String email, String password) {
+    // Test implementation using provided data
+    LoginPage loginPage = new LoginPage(driver);
+    loginPage.login(email, password);
+
+    // Verify login
+    Assert.assertTrue(driver.getCurrentUrl().contains("dashboard"));
+}
+```
+
+### 2. External Data Sources
+
+```java
+@DataProvider(name = "excelData")
+public static Object[][] getExcelData() throws IOException {
+    // Read from Excel file
+    // Implementation depends on your Excel library
+    return new Object[][] {
+        {"data1", "data2"},
+        {"data3", "data4"}
+    };
+}
+```
+
+## 🚀 Parallel Execution
+
+### 1. TestNG XML Configuration
+
+```xml
+<suite name="Parallel Test Suite" parallel="classes" thread-count="4">
+    <test name="Test Suite 1" parallel="methods" thread-count="2">
+        <classes>
+            <class name="com.testautomation.tests.examples.ExampleTest"/>
+        </classes>
+    </test>
+</suite>
+```
+
+### 2. Maven Configuration
+
+```bash
+# Run tests in parallel
+mvn test -Dparallel=methods -DthreadCount=4
+
+# Run specific test groups in parallel
+mvn test -Dgroups=smoke -Dparallel=classes -DthreadCount=3
+```
+
+## 🎨 Allure Reporting
+
+### 1. Test Descriptions
+
+```java
+@Test(description = "Verify user can login with valid credentials")
+@Epic("User Management")
+@Feature("Authentication")
+@Story("User Login")
+@Severity(SeverityLevel.CRITICAL)
+public void testValidLogin() {
+    // Test implementation
+}
+```
+
+### 2. Attachments
+
+```java
+@Attachment(value = "Page Screenshot", type = "image/png")
+public byte[] attachScreenshot() {
+    return ScreenshotUtils.takeScreenshotAsBytes(driver);
+}
+
+@Attachment(value = "Test Data", type = "text/plain")
+public String attachTestData() {
+    return "Username: " + username + ", Password: " + password;
+}
+```
+
+### 3. Steps
+
+```java
+@Test
+public void testWithSteps() {
+    Allure.step("Navigate to login page", () -> {
+        driver.get("https://example.com/login");
+    });
+
+    Allure.step("Enter credentials", () -> {
+        // Enter username and password
+    });
+
+    Allure.step("Click login button", () -> {
+        // Click login
+    });
+
+    Allure.step("Verify successful login", () -> {
+        // Verify login success
+    });
+}
+```
+
+## 🧪 Test Groups and Categories
+
+### 1. Test Grouping
+
+```java
+@Test(groups = {"smoke", "regression"})
+public void testCriticalFunctionality() {
+    // Critical test that runs in both smoke and regression
+}
+
+@Test(groups = {"smoke"})
+public void testBasicFunctionality() {
+    // Basic test that runs only in smoke
+}
+
+@Test(groups = {"regression"})
+public void testDetailedFunctionality() {
+    // Detailed test that runs only in regression
+}
+```
+
+### 2. Test Categories
+
+```java
+@Test(groups = {"ui", "positive"})
+public void testUIElements() {
+    // UI test with positive scenarios
+}
+
+@Test(groups = {"api", "negative"})
+public void testAPIErrorHandling() {
+    // API test with negative scenarios
+}
+```
+
+## 🔍 Best Practices
+
+### 1. Test Design
+
+- **One assertion per test** - Keep tests focused and easy to debug
+- **Descriptive test names** - Use clear, descriptive method names
+- **Independent tests** - Tests should not depend on each other
+- **Clean setup/teardown** - Always clean up test data
+
+### 2. Page Objects
+
+- **Single responsibility** - Each page class handles one page
+- **Encapsulation** - Hide WebDriver details from test classes
+- **Reusability** - Make methods reusable across tests
+- **Maintainability** - Centralize locator changes
+
+### 3. Test Data
+
+- **External data** - Use external files for test data
+- **Random data** - Use random data for unique test runs
+- **Data providers** - Leverage TestNG data providers
+- **Clean data** - Always start with clean test data
+
+### 4. Error Handling
+
+- **Graceful failures** - Handle expected errors gracefully
+- **Meaningful messages** - Provide clear error messages
+- **Screenshots** - Capture screenshots on failures
+- **Logging** - Use comprehensive logging
+
+## 📁 File Organization
+
+### Recommended Structure
+
+```
+src/test/java/com/testautomation/
+├── tests/
+│   ├── ui/              # UI tests
+│   ├── api/             # API tests
+│   ├── integration/     # Integration tests
+│   └── performance/     # Performance tests
+├── pages/
+│   ├── common/          # Common page elements
+│   ├── forms/           # Form-related pages
+│   └── navigation/      # Navigation pages
+└── utilities/
+    ├── api/             # API utilities
+    ├── database/        # Database utilities
+    └── reporting/       # Reporting utilities
+```
+
+## 🎯 Common Patterns
+
+### 1. Test Setup Pattern
+
+```java
+@BeforeMethod
+public void setUp() {
+    // Navigate to test page
+    driver.get(ConfigReader.getBaseUrl() + "test-page");
+
+    // Wait for page to load
+    WaitUtils.sleep(2000);
+
+    // Verify page loaded
+    Assert.assertTrue(driver.getTitle().contains("Expected Title"));
+}
+```
+
+### 2. Test Cleanup Pattern
+
+```java
+@AfterMethod
+public void tearDown() {
+    // Clean up test data
+    // Reset application state
+    // Take screenshot on failure
+    if (result.getStatus() == ITestResult.FAILURE) {
+        ScreenshotUtils.takeScreenshot(driver, "test-failure");
+    }
+}
+```
+
+### 3. Assertion Pattern
+
+```java
+@Test
+public void testWithAssertions() {
+    // Arrange
+    String expectedTitle = "Expected Page Title";
+
+    // Act
+    driver.get("https://example.com");
+
+    // Assert
+    String actualTitle = driver.getTitle();
+    Assert.assertEquals(actualTitle, expectedTitle, "Page title should match expected");
+}
+```
+
+## 🚨 Troubleshooting
+
+### Common Issues and Solutions
+
+1. **Element Not Found**
+
+   - Check if element is in DOM
+   - Verify locator strategy
+   - Add explicit waits
+   - Check for iframes
+
+2. **Timing Issues**
+
+   - Use explicit waits instead of Thread.sleep()
+   - Check for dynamic content loading
+   - Verify page load completion
+
+3. **Browser Compatibility**
+
+   - Update browser to latest version
+   - Check WebDriver compatibility
+   - Use Selenium Manager for auto-driver management
+
+4. **Test Flakiness**
+   - Add retry logic for flaky tests
+   - Use stable locators
+   - Implement proper waits
+   - Clean test environment
+
+## 📚 Additional Resources
+
+- [Selenium Documentation](https://selenium.dev/documentation/)
+- [TestNG Documentation](https://testng.org/doc/)
+- [Allure Documentation](https://docs.qameta.io/allure/)
+- [Page Object Model](https://www.selenium.dev/documentation/test_practices/encouraged/page_object_models/)
+
+---
+
+**Happy Testing! 🎯**
+
+This template guide provides a solid foundation for building robust, maintainable test automation solutions.
