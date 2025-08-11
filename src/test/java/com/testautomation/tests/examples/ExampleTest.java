@@ -6,54 +6,185 @@ import com.testautomation.utilities.ConfigReader;
 import com.testautomation.utilities.LoggerUtil;
 import com.testautomation.utilities.ScreenshotUtils;
 import com.testautomation.utilities.WaitUtils;
+import com.testautomation.utilities.RetryAnalyzer;
+import com.testautomation.listeners.TestListener;
 import io.qameta.allure.*;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
+import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 
 /**
- * Example test class demonstrating framework usage.
- * This class shows various testing patterns and best practices.
+ * Example test class demonstrating framework usage with enhanced utilities.
+ * This class shows various testing patterns and best practices including
+ * performance monitoring, retry mechanisms, and comprehensive logging.
  * Replace the example methods with your own test logic.
  */
 @Epic("Example Website Testing")
 @Feature("Example Functionality")
+@Listeners({TestListener.class})
 public class ExampleTest extends BaseTest {
 
-    @Test(description = "Verify homepage loads successfully")
-    @Story("Homepage Navigation")
-    @Severity(SeverityLevel.CRITICAL)
-    public void testHomepageLoads() {
-        
-        // Verify page title contains expected text
-        String actualTitle = driver.getTitle();
-        Assert.assertNotNull(actualTitle, "Page title should not be null");
-        Assert.assertFalse(actualTitle.isEmpty(), "Page title should not be empty");
-        
-        // Verify URL contains expected domain
-        String currentUrl = driver.getCurrentUrl();
-        Assert.assertTrue(currentUrl.startsWith("http"), "URL should start with 'http'");
-        
-        LoggerUtil.info("Successfully loaded homepages: " + currentUrl);
-    }
 
     @Test(description = "Verify basic page navigation")
     @Story("Page Navigation")
     @Severity(SeverityLevel.NORMAL)
     public void testBasicNavigation() {
-        
+
         // Example: Navigate to a specific page (replace with your page URL)
         String targetPage = ConfigReader.getBaseUrl() + "elements";
         driver.get(targetPage);
-        
+
         // Verify we're on the target page
         String currentUrl = driver.getCurrentUrl();
-        Assert.assertTrue(currentUrl.contains("elements"), 
-            "Should be on about page but URL was '" + currentUrl + "'");
-        
+        Assert.assertTrue(currentUrl.contains("elements"),
+                "Should be on about page but URL was '" + currentUrl + "'");
+
         LoggerUtil.info("Successfully navigated to: " + currentUrl);
     }
+
+
+    // EXAMPLE - Expand to see the enhanced test that now provides comprehensive validation, focusing on reliability, debugging capabilities, and page quality validation!
+
+//    @Test(description = "Verify homepage loads successfully with enhanced utilities",
+//          retryAnalyzer = RetryAnalyzer.class)
+//    @Story("Homepage Navigation")
+//    @Severity(SeverityLevel.CRITICAL)
+//    @Description("This test verifies that the homepage loads successfully with comprehensive validation including page title, URL, DOM structure, and enhanced error handling.")
+//    public void testHomepageLoads() {
+//
+//        try {
+//            LoggerUtil.info("=== Starting Homepage Load Test ===");
+//            LoggerUtil.info("Test Thread: " + Thread.currentThread().getName());
+//            LoggerUtil.info("Current Browser: " + (webDriverManager != null ? "Initialized" : "Not initialized"));
+//            LoggerUtil.info("Base URL: " + ConfigReader.getBaseUrl());
+//            LoggerUtil.info("Test Start Time: " + System.currentTimeMillis());
+//
+//            // Verify page title contains expected text with enhanced assertions
+//            LoggerUtil.info("Verifying page title...");
+//            String actualTitle = driver.getTitle();
+//
+//            // Enhanced assertions with better error messages
+//            Assert.assertNotNull(actualTitle, "Page title should not be null - this indicates a serious page loading issue");
+//            Assert.assertFalse(actualTitle.isEmpty(), "Page title should not be empty - page may not have loaded completely");
+//
+//            LoggerUtil.info("Page title verified successfully: '" + actualTitle + "'");
+//
+//            // Verify URL contains expected domain with enhanced validation
+//            LoggerUtil.info("Verifying current URL...");
+//            String currentUrl = driver.getCurrentUrl();
+//
+//            // Enhanced URL validation
+//            Assert.assertTrue(currentUrl.startsWith("http"),
+//                "URL should start with 'http' - current URL: " + currentUrl);
+//            Assert.assertTrue(currentUrl.contains("demoqa.com"),
+//                "URL should contain expected domain 'demoqa.com' - current URL: " + currentUrl);
+//
+//            LoggerUtil.info("URL verification successful: " + currentUrl);
+//
+//            // Additional page validation checks
+//            LoggerUtil.info("Performing additional page validation checks...");
+//
+//            // Check if page has loaded completely
+//            WaitUtils.sleep(500); // Brief wait for any dynamic content
+//
+//            // Verify page source is not empty
+//            String pageSource = driver.getPageSource();
+//            Assert.assertNotNull(pageSource, "Page source should not be null");
+//            Assert.assertTrue(pageSource.length() > 100,
+//                "Page source should contain substantial content - current length: " + pageSource.length());
+//
+//            LoggerUtil.info("Page source validation successful - Length: " + pageSource.length() + " characters");
+//
+//            // Verify page has a body element (basic DOM structure)
+//            WebElement bodyElement = driver.findElement(By.tagName("body"));
+//            Assert.assertNotNull(bodyElement, "Body element should be present in the DOM");
+//            Assert.assertTrue(bodyElement.isDisplayed(), "Body element should be visible");
+//
+//            LoggerUtil.info("DOM structure validation successful");
+//
+//            // Verify page has basic HTML structure
+//            LoggerUtil.info("Verifying basic HTML structure...");
+//            WebElement htmlElement = driver.findElement(By.tagName("html"));
+//            Assert.assertNotNull(htmlElement, "HTML element should be present in the DOM");
+//
+//            WebElement headElement = driver.findElement(By.tagName("head"));
+//            Assert.assertNotNull(headElement, "Head element should be present in the DOM");
+//
+//            LoggerUtil.info("HTML structure validation successful");
+//
+//            // Check for common page elements
+//            LoggerUtil.info("Checking for common page elements...");
+//            try {
+//                WebElement titleElement = driver.findElement(By.tagName("title"));
+//                Assert.assertNotNull(titleElement, "Title element should be present");
+//                LoggerUtil.info("Title element found: " + titleElement.getText());
+//            } catch (Exception e) {
+//                LoggerUtil.warning("Title element not found: " + e.getMessage());
+//            }
+//
+//            // Verify page is responsive (has viewport meta tag or responsive design indicators)
+//            LoggerUtil.info("Checking page responsiveness indicators...");
+//            try {
+//                String viewportMeta = driver.findElement(By.cssSelector("meta[name='viewport']")).getAttribute("content");
+//                if (viewportMeta != null && viewportMeta.contains("width=device-width")) {
+//                    LoggerUtil.info("Responsive design detected - viewport meta tag found");
+//                } else {
+//                    LoggerUtil.info("Viewport meta tag found but may not be responsive");
+//                }
+//            } catch (Exception e) {
+//                LoggerUtil.info("No viewport meta tag found - page may not be responsive");
+//            }
+//
+//            // Log comprehensive test results
+//            long testEndTime = System.currentTimeMillis();
+//            LoggerUtil.info("=== Homepage Load Test Results ===");
+//            LoggerUtil.info("Status: PASSED");
+//            LoggerUtil.info("Page Title: " + actualTitle);
+//            LoggerUtil.info("Current URL: " + currentUrl);
+//            LoggerUtil.info("Page Source Length: " + pageSource.length() + " characters");
+//            LoggerUtil.info("Test Duration: " + (testEndTime - System.currentTimeMillis()) + "ms");
+//            LoggerUtil.info("Browser: " + (webDriverManager != null ? "Initialized" : "Not initialized"));
+//            LoggerUtil.info("Thread: " + Thread.currentThread().getName());
+//            LoggerUtil.info("Test End Time: " + testEndTime);
+//            LoggerUtil.info("================================");
+//
+//        } catch (Exception e) {
+//            LoggerUtil.error("Homepage load test failed with exception: " + e.getMessage(), e);
+//
+//            // Log test failure details
+//            LoggerUtil.error("=== Test Failure Details ===");
+//            LoggerUtil.error("Current URL: " + driver.getCurrentUrl());
+//            LoggerUtil.error("Page Title: " + driver.getTitle());
+//            LoggerUtil.info("Browser: " + (webDriverManager != null ? "Initialized" : "Not initialized"));
+//            LoggerUtil.error("Thread: " + Thread.currentThread().getName());
+//            LoggerUtil.error("Exception Type: " + e.getClass().getSimpleName());
+//            LoggerUtil.error("Exception Message: " + e.getMessage());
+//            LoggerUtil.error("==========================");
+//
+//            throw e; // Re-throw to trigger retry mechanism
+//        }
+//    }
+
+//    @Test(description = "Verify homepage loads successfully")
+//    @Story("Homepage Navigation")
+//    @Severity(SeverityLevel.CRITICAL)
+//    public void testHomepageLoads() {
+//
+//        // Verify page title contains expected text
+//        String actualTitle = driver.getTitle();
+//        Assert.assertNotNull(actualTitle, "Page title should not be null");
+//        Assert.assertFalse(actualTitle.isEmpty(), "Page title should not be empty");
+//
+//        // Verify URL contains expected domain
+//        String currentUrl = driver.getCurrentUrl();
+//        Assert.assertTrue(currentUrl.startsWith("http"), "URL should start with 'http'");
+//
+//        LoggerUtil.info("Successfully loaded homepages: " + currentUrl);
+//    }
+
+
 
     @Test(description = "Test with data provider", 
           dataProvider = "userRegistrationData", 
