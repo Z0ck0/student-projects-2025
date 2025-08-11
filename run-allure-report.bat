@@ -8,7 +8,7 @@ set "YELLOW=[93m"
 set "NC=[0m"
 
 :: Function to print colored output
-call :print_status "Starting test execution and Allure report generation..."
+call :print_status "Starting test execution and Allure report generation...."
 
 :: Check if Maven is installed
 where mvn >nul 2>&1
