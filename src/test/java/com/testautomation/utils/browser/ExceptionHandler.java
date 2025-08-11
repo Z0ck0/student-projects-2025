@@ -1,9 +1,10 @@
-package com.testautomation.utilities;
+package com.testautomation.utils.browser;
 
-import com.testautomation.exceptions.FrameworkException;
-import com.testautomation.exceptions.TestSetupException;
-import com.testautomation.exceptions.WebDriverException;
-import com.testautomation.exceptions.ConfigurationException;
+import com.testautomation.utils.common.LoggerUtil;
+import com.testautomation.core.exceptions.FrameworkException;
+import com.testautomation.core.exceptions.TestSetupException;
+import com.testautomation.core.exceptions.WebDriverException;
+import com.testautomation.core.exceptions.ConfigurationException;
 
 /**
  * Utility class for centralized exception handling and error reporting.

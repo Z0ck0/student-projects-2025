@@ -1,11 +1,11 @@
-package com.testautomation.listeners;
+package com.testautomation.core.listeners;
 
-import com.testautomation.exceptions.FrameworkException;
-import com.testautomation.exceptions.TestSetupException;
-import com.testautomation.exceptions.WebDriverException;
-import com.testautomation.exceptions.ConfigurationException;
-import com.testautomation.utilities.ExceptionHandler;
-import com.testautomation.utilities.LoggerUtil;
+import com.testautomation.core.exceptions.FrameworkException;
+import com.testautomation.core.exceptions.TestSetupException;
+import com.testautomation.core.exceptions.WebDriverException;
+import com.testautomation.core.exceptions.ConfigurationException;
+
+import com.testautomation.utils.common.LoggerUtil;
 import org.testng.ITestContext;
 import org.testng.ITestListener;
 import org.testng.ITestResult;
@@ -111,7 +111,7 @@ public class ExceptionTestListener implements ITestListener {
         LoggerUtil.error("Test: " + result.getName());
         LoggerUtil.error("Component: " + e.getComponent());
         LoggerUtil.error("Error: " + e.getMessage());
-        LoggerUtil.error("Recoverable: " + ExceptionHandler.isRecoverable(e));
+        LoggerUtil.error("Recoverable: Unknown");
         LoggerUtil.error("=== End Setup Failure Details ===");
     }
     
@@ -123,7 +123,7 @@ public class ExceptionTestListener implements ITestListener {
         LoggerUtil.error("Test: " + result.getName());
         LoggerUtil.error("Component: " + e.getComponent());
         LoggerUtil.error("Error: " + e.getMessage());
-        LoggerUtil.error("Recoverable: " + ExceptionHandler.isRecoverable(e));
+        LoggerUtil.error("Recoverable: Unknown");
         LoggerUtil.error("=== End WebDriver Failure Details ===");
     }
     
@@ -135,7 +135,7 @@ public class ExceptionTestListener implements ITestListener {
         LoggerUtil.error("Test: " + result.getName());
         LoggerUtil.error("Component: " + e.getComponent());
         LoggerUtil.error("Error: " + e.getMessage());
-        LoggerUtil.error("Recoverable: " + ExceptionHandler.isRecoverable(e));
+        LoggerUtil.error("Recoverable: Unknown");
         LoggerUtil.error("=== End Configuration Failure Details ===");
     }
     
@@ -149,7 +149,7 @@ public class ExceptionTestListener implements ITestListener {
         LoggerUtil.error("Component: " + e.getComponent());
         LoggerUtil.error("Error: " + e.getMessage());
         LoggerUtil.error("Timestamp: " + e.getTimestamp());
-        LoggerUtil.error("Recoverable: " + ExceptionHandler.isRecoverable(e));
+        LoggerUtil.error("Recoverable: Unknown");
         LoggerUtil.error("=== End Framework Failure Details ===");
     }
     
@@ -164,9 +164,9 @@ public class ExceptionTestListener implements ITestListener {
         LoggerUtil.error("=== End Generic Failure Details ===");
         
         // Log full stack trace for debugging
-        ExceptionHandler.logExceptionWithStackTrace(
-            throwable instanceof Exception ? (Exception) throwable : new Exception(throwable), 
-            "Test: " + result.getName()
-        );
+        LoggerUtil.error("Stack trace for test: " + result.getName(), 
+            throwable instanceof Exception ? (Exception) throwable : new Exception(throwable));
     }
 }
+
+

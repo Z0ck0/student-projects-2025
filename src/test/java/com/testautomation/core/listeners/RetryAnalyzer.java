@@ -1,6 +1,7 @@
-package com.testautomation.utilities;
+package com.testautomation.core.listeners;
 
-import com.testautomation.utilities.ConfigReader;
+import com.testautomation.core.config.ConfigReader;
+import com.testautomation.utils.common.LoggerUtil;
 import org.testng.IRetryAnalyzer;
 import org.testng.ITestResult;
 

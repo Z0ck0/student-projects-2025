@@ -1,5 +1,6 @@
-package com.testautomation.utilities;
+package com.testautomation.utils.browser;
 
+import com.testautomation.utils.common.LoggerUtil;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;

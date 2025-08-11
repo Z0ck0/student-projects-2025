@@ -1,19 +1,22 @@
-package com.testautomation.tests;
+package com.testautomation.tests.base;
 
-import com.testautomation.utilities.ConfigReader;
-import com.testautomation.utilities.LoggerUtil;
-import com.testautomation.utilities.RandomDataGenerator;
-import com.testautomation.utilities.ScreenshotUtils;
-import com.testautomation.utilities.WebDriverManager;
+import com.testautomation.core.config.ConfigReader;
+import com.testautomation.core.driver.WebDriverManager;
+import com.testautomation.core.exceptions.ConfigurationException;
+import com.testautomation.core.exceptions.TestSetupException;
+import com.testautomation.core.exceptions.WebDriverException;
+import com.testautomation.core.listeners.RetryAnalyzer;
+import com.testautomation.utils.browser.ScreenshotUtils;
+import com.testautomation.utils.browser.WaitUtils;
+import com.testautomation.utils.data.RandomDataGenerator;
+import com.testautomation.utils.common.LoggerUtil;
 import io.qameta.allure.Attachment;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.ITestResult;
-import org.testng.annotations.AfterMethod;
-import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.Optional;
-import org.testng.annotations.Parameters;
+import org.testng.annotations.*;
 
 import java.time.Duration;
 

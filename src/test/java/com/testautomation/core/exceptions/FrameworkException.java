@@ -1,4 +1,4 @@
-package com.testautomation.exceptions;
+package com.testautomation.core.exceptions;
 
 /**
  * Base exception class for the test automation framework.

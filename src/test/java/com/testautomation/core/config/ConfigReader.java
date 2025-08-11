@@ -1,13 +1,14 @@
-package com.testautomation.utilities;
+package com.testautomation.core.config;
 
-import com.testautomation.exceptions.ConfigurationException;
+import com.testautomation.core.exceptions.ConfigurationException;
+import com.testautomation.utils.common.LoggerUtil;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
 
 public class ConfigReader {
     private static Properties properties;
-    private static final String CONFIG_FILE = "config.properties";
+    private static final String CONFIG_FILE = "config/config.properties";
     private static boolean isInitialized = false;
 
     static {

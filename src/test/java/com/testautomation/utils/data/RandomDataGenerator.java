@@ -1,4 +1,4 @@
-package com.testautomation.utilities;
+package com.testautomation.utils.data;
 
 import com.github.javafaker.Faker;
 

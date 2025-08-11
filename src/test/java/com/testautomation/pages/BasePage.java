@@ -1,6 +1,6 @@
 package com.testautomation.pages;
 
-import com.testautomation.utilities.WaitUtils;
+import com.testautomation.utils.browser.WaitUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;

@@ -1,4 +1,4 @@
-package com.testautomation.exceptions;
+package com.testautomation.core.exceptions;
 
 /**
  * Exception thrown when configuration operations fail.

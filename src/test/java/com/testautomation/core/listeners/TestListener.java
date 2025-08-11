@@ -1,6 +1,6 @@
-package com.testautomation.listeners;
+package com.testautomation.core.listeners;
 
-import com.testautomation.utilities.LoggerUtil;
+import com.testautomation.utils.common.LoggerUtil;
 import org.testng.ITestContext;
 import org.testng.ITestListener;
 import org.testng.ITestResult;
@@ -261,3 +261,5 @@ public class TestListener implements ITestListener {
         LoggerUtil.info("Test execution counters have been reset");
     }
 }
+
+

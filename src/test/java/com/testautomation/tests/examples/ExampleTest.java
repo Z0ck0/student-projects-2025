@@ -1,13 +1,13 @@
 package com.testautomation.tests.examples;
 
 import com.testautomation.fixtures.TestDataProvider;
-import com.testautomation.tests.BaseTest;
-import com.testautomation.utilities.ConfigReader;
-import com.testautomation.utilities.LoggerUtil;
-import com.testautomation.utilities.ScreenshotUtils;
-import com.testautomation.utilities.WaitUtils;
-import com.testautomation.utilities.RetryAnalyzer;
-import com.testautomation.listeners.TestListener;
+import com.testautomation.core.listeners.TestListener;
+import com.testautomation.tests.base.BaseTest;
+import com.testautomation.core.config.ConfigReader;
+import com.testautomation.utils.common.LoggerUtil;
+import com.testautomation.utils.browser.ScreenshotUtils;
+import com.testautomation.utils.browser.WaitUtils;
+import com.testautomation.core.listeners.RetryAnalyzer;
 import io.qameta.allure.*;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;

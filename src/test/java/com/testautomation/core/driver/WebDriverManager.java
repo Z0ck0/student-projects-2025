@@ -1,16 +1,15 @@
-package com.testautomation.utilities;
+package com.testautomation.core.driver;
 
+import com.testautomation.core.exceptions.WebDriverException;
+import com.testautomation.core.config.ConfigReader;
 import com.testautomation.enums.BrowserType;
-import com.testautomation.exceptions.WebDriverException;
+import com.testautomation.utils.common.LoggerUtil;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.chrome.ChromeDriverService;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.edge.EdgeDriver;
-import org.openqa.selenium.edge.EdgeDriverService;
 import org.openqa.selenium.edge.EdgeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
-import org.openqa.selenium.firefox.GeckoDriverService;
 import org.openqa.selenium.firefox.FirefoxOptions;
 import org.openqa.selenium.safari.SafariDriver;
 import org.openqa.selenium.safari.SafariOptions;
@@ -60,8 +59,8 @@ public class WebDriverManager {
 
     private WebDriver createChromeDriver() {
         try {
-            ChromeDriverService chromeService = ChromeDriverService.createDefaultService();
-            return new ChromeDriver(chromeService, getChromeOptions());
+            // ChromeDriverService chromeService = ChromeDriverService.createDefaultService(); // This line was removed as per the new_code
+            return new ChromeDriver(getChromeOptions());
         } catch (Exception e) {
             throw new WebDriverException("ChromeDriver", 
                 "Failed to create Chrome driver", e);
@@ -70,8 +69,8 @@ public class WebDriverManager {
 
     private WebDriver createFirefoxDriver() {
         try {
-            GeckoDriverService firefoxService = GeckoDriverService.createDefaultService();
-            return new FirefoxDriver(firefoxService, getFirefoxOptions());
+            // GeckoDriverService firefoxService = GeckoDriverService.createDefaultService(); // This line was removed as per the new_code
+            return new FirefoxDriver(getFirefoxOptions());
         } catch (Exception e) {
             throw new WebDriverException("FirefoxDriver", 
                 "Failed to create Firefox driver", e);
@@ -80,8 +79,8 @@ public class WebDriverManager {
 
     private WebDriver createEdgeDriver() {
         try {
-            EdgeDriverService edgeService = EdgeDriverService.createDefaultService();
-            return new EdgeDriver(edgeService, getEdgeOptions());
+            // EdgeDriverService edgeService = EdgeDriverService.createDefaultService(); // This line was removed as per the new_code
+            return new EdgeDriver(getEdgeOptions());
         } catch (Exception e) {
             throw new WebDriverException("EdgeDriver", 
                 "Failed to create Edge driver", e);

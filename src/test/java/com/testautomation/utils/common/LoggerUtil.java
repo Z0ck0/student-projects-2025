@@ -1,4 +1,4 @@
-package com.testautomation.utilities;
+package com.testautomation.utils.common;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
