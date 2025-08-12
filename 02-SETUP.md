@@ -495,8 +495,8 @@ tail -f target/surefire-reports/testng-results.xml
 
 1. **Week 1**: Understand basic structure and run examples
 2. **Week 2**: Create simple page objects and tests
-3. **Week 3**: Implement data-driven testing
-4. **Week 4**: Add custom utilities and extend framework
+3. **Week 3**: Implement data-driven testing (Optional)
+4. **Week 4**: Add custom utilities and extend framework (Optional)
 
 ---
 

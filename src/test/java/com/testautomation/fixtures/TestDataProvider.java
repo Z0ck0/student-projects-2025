@@ -30,4 +30,13 @@ public class TestDataProvider {
             {"testuser3@example.com", "password789"}
         };
     }
+    
+    @DataProvider(name = "buttonTestData")
+    public static Object[][] getButtonTestData() {
+        return new Object[][] {
+            {"Double Click", "Message should appear"},
+            {"Right Click", "Message should appear"},
+            {"Single Click", "Message should appear"}
+        };
+    }
 }
