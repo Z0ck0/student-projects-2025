@@ -21,6 +21,9 @@ Get up and running in 5 minutes:
 - ❌ **Enums** (`BrowserType`, `TestType`, `SeverityLevel`) - Advanced framework constants
 - ❌ **Fixtures** (`TestDataProvider`) - Complex test data management
 - ❌ **Listeners** (`TestListener`, `RetryAnalyzer`) - Advanced test lifecycle management
+- ❌ **Utils** (`WaitUtils`, `ScreenshotUtils`, `RandomDataGenerator`, `LoggerUtil`, `etc`) - Helper utilities and common functions
+- ❌ **Test Suites & Reporting** - XML configurations and Allure reports
+- ❌ **Advanced TestNG** (parallel execution, cross-browser, groups) - Scaling features
 
 **Focus on these essentials instead:**
 
