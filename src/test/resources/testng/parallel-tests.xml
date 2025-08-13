@@ -4,12 +4,8 @@
     <!-- Run Elements SubCategory Tests  -->
     <test name="Elements Tests">
         <classes>
-            <class name="com.demoqa.tests.elements.TextBoxTest"/>
-            <class name="com.demoqa.tests.elements.CheckBoxTest"/>
-            <class name="com.demoqa.tests.elements.RadioButtonTest"/>
-            <class name="com.demoqa.tests.elements.WebTablesTest"/>
-            <class name="com.demoqa.tests.elements.ButtonsTest"/>
-            <class name="com.demoqa.tests.elements.LinksTest"/>
+            <class name="com.testautomation.tests.examples.ExampleButtons"/>
+            <class name="com.testautomation.tests.examples.ExampleTest"/>
         </classes>
     </test>
 
@@ -17,8 +13,8 @@
     <!-- Run Forms SubCategory Tests  -->
     <test name="Forms Tests">
         <classes>
-            <!-- Pending: These test classes will be developed and implemented as part of future iterations.
-            They serve as placeholders within the evolving project structure. -->
+            <!-- TODO: Add form-related test classes when implemented -->
+            <!-- Example: <class name="com.testautomation.tests.forms.PracticeFormTest"/> -->
         </classes>
     </test>
 
@@ -26,8 +22,8 @@
     <!-- Run Alerts, Frame and Windows SubCategory Tests  -->
     <test name="Alerts, Frame and Windows Tests">
         <classes>
-            <!-- Pending: These test classes will be developed and implemented as part of future iterations.
-            They serve as placeholders within the evolving project structure. -->
+            <!-- TODO: Add alerts/frames/windows test classes when implemented -->
+            <!-- Example: <class name="com.testautomation.tests.alerts.AlertsTest"/> -->
         </classes>
     </test>
 
@@ -35,8 +31,8 @@
     <!-- Run Widgets SubCategory Tests  -->
     <test name="Widgets Tests">
         <classes>
-            <!-- Pending: These test classes will be developed and implemented as part of future iterations.
-            They serve as placeholders within the evolving project structure. -->
+            <!-- TODO: Add widgets test classes when implemented -->
+            <!-- Example: <class name="com.testautomation.tests.widgets.WidgetsTest"/> -->
         </classes>
     </test>
 
@@ -44,8 +40,8 @@
     <!-- Run Interactions SubCategory Tests  -->
     <test name="Interactions Tests">
         <classes>
-            <!-- Pending: These test classes will be developed and implemented as part of future iterations.
-            They serve as placeholders within the evolving project structure. -->
+            <!-- TODO: Add interactions test classes when implemented -->
+            <!-- Example: <class name="com.testautomation.tests.interactions.InteractionsTest"/> -->
         </classes>
     </test>
 
@@ -53,8 +49,8 @@
     <!-- Run Book Store Application SubCategory Tests  -->
     <test name="Book Store Application Tests">
         <classes>
-            <!-- Pending: These test classes will be developed and implemented as part of future iterations.
-            They serve as placeholders within the evolving project structure. -->
+            <!-- TODO: Add book store test classes when implemented -->
+            <!-- Example: <class name="com.testautomation.tests.bookstore.BookStoreTest"/> -->
         </classes>
     </test>
 </suite>

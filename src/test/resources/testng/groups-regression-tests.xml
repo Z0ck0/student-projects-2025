@@ -9,12 +9,8 @@
             </run>
         </groups>
         <classes>
-            <class name="com.demoqa.tests.elements.TextBoxTest"/>
-            <class name="com.demoqa.tests.elements.CheckBoxTest"/>
-            <class name="com.demoqa.tests.elements.RadioButtonTest"/>
-            <class name="com.demoqa.tests.elements.WebTablesTest"/>
-            <class name="com.demoqa.tests.elements.ButtonsTest"/>
-            <class name="com.demoqa.tests.elements.LinksTest"/>
+            <class name="com.testautomation.tests.examples.ExampleButtons"/>
+            <class name="com.testautomation.tests.examples.ExampleTest"/>
         </classes>
     </test>
 </suite>

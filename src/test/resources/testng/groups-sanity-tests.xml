@@ -11,9 +11,8 @@ They are typically run before deploying the application to production to ensure 
             </run>
         </groups>
         <classes>
-            <class name="com.demoqa.tests.elements.TextBoxTest"/>
-            <class name="com.demoqa.tests.elements.CheckBoxTest"/>
-            <class name="com.demoqa.tests.elements.RadioButtonTest"/>
+            <class name="com.testautomation.tests.examples.ExampleButtons"/>
+            <class name="com.testautomation.tests.examples.ExampleTest"/>
         </classes>
     </test>
 </suite>

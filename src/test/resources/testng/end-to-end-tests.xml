@@ -1,2 +1,12 @@
-<!-- End-to-End-tests.xml: This XML file should contain test cases that simulate real-world user journeys through the application.
-End-to-end tests help to validate the overall flow and functionality of the application from the user's perspective.  -->
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="End-to-End Test Suite">
+
+    <!-- Run End-to-End Tests -->
+    <test name="EndToEndTests">
+        <classes>
+            <class name="com.testautomation.tests.examples.ExampleButtons"/>
+            <class name="com.testautomation.tests.examples.ExampleTest"/>
+        </classes>
+    </test>
+    
+</suite>
