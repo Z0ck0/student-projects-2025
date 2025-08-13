@@ -1,5 +1,6 @@
 package com.testautomation.pages;
 
+import com.testautomation.core.pages.BasePage;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -12,6 +13,11 @@ import org.openqa.selenium.interactions.Actions;
  * Contains all interactive elements and methods for button interactions.
  */
 public class ButtonsPage extends BasePage {
+
+        public ButtonsPage(WebDriver driver) {
+        super(driver);
+        this.actions = new Actions(driver);
+    }
     
     // Actions for complex interactions
     private Actions actions;
@@ -37,10 +43,7 @@ public class ButtonsPage extends BasePage {
     private final By elementsMenu = By.xpath("//div[contains(@class,'header-text') and text()='Elements']");
     private final By buttonsSubmenu = By.xpath("//span[text()='Buttons']");
     
-    public ButtonsPage(WebDriver driver) {
-        super(driver);
-        this.actions = new Actions(driver);
-    }
+
     
     /**
      * Navigate to the Buttons page

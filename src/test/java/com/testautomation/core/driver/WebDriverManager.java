@@ -14,9 +14,17 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxOptions;
 import org.openqa.selenium.safari.SafariDriver;
 import org.openqa.selenium.safari.SafariOptions;
+import java.time.Duration;
 
 public class WebDriverManager {
     private WebDriver driver;
+    
+    // Add shutdown hook to ensure WebDriver cleanup on JVM shutdown
+    static {
+        Runtime.getRuntime().addShutdownHook(new Thread(() -> {
+            LoggerUtil.info("JVM shutdown detected, ensuring WebDriver cleanup...");
+        }));
+    }
 
     public WebDriver initiateDriver(String browserName) {
         try {
@@ -62,7 +70,14 @@ public class WebDriverManager {
         try {
             // Create ChromeDriverService with explicit path for better macOS compatibility
             ChromeDriverService chromeService = ChromeDriverService.createDefaultService();
-            return new ChromeDriver(chromeService, getChromeOptions());
+            ChromeDriver driver = new ChromeDriver(chromeService, getChromeOptions());
+            
+            // Set timeouts from configuration
+            driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(ConfigReader.getImplicitWait()));
+            driver.manage().timeouts().pageLoadTimeout(Duration.ofSeconds(ConfigReader.getPageLoadTimeout()));
+            driver.manage().timeouts().scriptTimeout(Duration.ofSeconds(30)); // Default script timeout
+            
+            return driver;
         } catch (Exception e) {
             throw new WebDriverException("ChromeDriver", 
                 "Failed to create Chrome driver", e);
@@ -165,13 +180,31 @@ public class WebDriverManager {
     public void quitDriver() {
         if (driver != null) {
             try {
+                // Close all windows and quit the driver
                 driver.quit();
-                driver = null;
                 LoggerUtil.info("WebDriver quit successfully");
             } catch (Exception e) {
                 LoggerUtil.error("Failed to quit WebDriver", e);
-                throw new WebDriverException("WebDriver", 
-                    "Failed to quit WebDriver", e);
+                // Don't throw exception during cleanup to avoid masking test failures
+            } finally {
+                // Always set driver to null to prevent memory leaks
+                driver = null;
+            }
+        }
+    }
+
+    /**
+     * Force close the WebDriver if normal quit fails
+     */
+    public void forceQuitDriver() {
+        if (driver != null) {
+            try {
+                driver.close();
+                driver.quit();
+            } catch (Exception e) {
+                LoggerUtil.error("Force quit WebDriver failed", e);
+            } finally {
+                driver = null;
             }
         }
     }

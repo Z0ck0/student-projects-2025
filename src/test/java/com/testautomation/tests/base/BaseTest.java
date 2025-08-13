@@ -2,17 +2,12 @@ package com.testautomation.tests.base;
 
 import com.testautomation.core.config.ConfigReader;
 import com.testautomation.core.driver.WebDriverManager;
-import com.testautomation.core.exceptions.ConfigurationException;
-import com.testautomation.core.exceptions.TestSetupException;
-import com.testautomation.core.exceptions.WebDriverException;
-import com.testautomation.core.listeners.RetryAnalyzer;
+import com.testautomation.core.pages.PageObjectManager;
 import com.testautomation.utils.browser.ScreenshotUtils;
-import com.testautomation.utils.browser.WaitUtils;
 import com.testautomation.utils.data.RandomDataGenerator;
 import com.testautomation.utils.common.LoggerUtil;
 import io.qameta.allure.Attachment;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.ITestResult;
@@ -23,7 +18,12 @@ import java.time.Duration;
 /**
  * Base test class that provides common setup and teardown functionality for all test classes.
  * This class is framework-agnostic and provides WebDriver management and common test utilities.
- * Extend this class to create your own test classes.
+ * 
+ * Key Features:
+ * - Automatically navigates to base URL from config.properties on test setup
+ * - No need to manually call driver.get() or ConfigReader.getBaseUrl() in test methods
+ * - WebDriver, WebDriverWait, and Actions are automatically initialized
+ * - Extend this class to create your own test classes.
  */
 public class BaseTest {
     // region WebDriver, WebDriverWait, and Actions Declaration
@@ -33,6 +33,7 @@ public class BaseTest {
     // endregion
 
     protected WebDriverManager webDriverManager;
+    protected PageObjectManager pages;
 
     // Variables to store generated data for testing.
     public String getRandomEmail;
@@ -72,20 +73,15 @@ public class BaseTest {
             wait = new WebDriverWait(driver, Duration.ofSeconds(ConfigReader.getExplicitWait()));
             actions = new Actions(driver);
 
-            // Navigate to the base URL with retry logic
-            int maxRetries = 3;
-            for (int i = 0; i < maxRetries; i++) {
-                try {
-                    driver.get(ConfigReader.getBaseUrl());
-                    break;
-                } catch (Exception e) {
-                    if (i == maxRetries - 1) {
-                        throw e;
-                    }
-                    LoggerUtil.warning("Failed to navigate to base URL, retrying... Attempt " + (i + 1));
-                    Thread.sleep(2000);
-                }
+            // Auto-navigate to base URL if driver is on blank page or not yet navigated
+            String currentUrl = driver.getCurrentUrl();
+            if (currentUrl.equals("about:blank") || currentUrl.isEmpty() || currentUrl.equals("data:,")) {
+                LoggerUtil.info("Auto-navigating to base URL: " + ConfigReader.getBaseUrl());
+                driver.get(ConfigReader.getBaseUrl());
             }
+            
+            // Initialize PageObjectManager for easy access to all page objects
+            pages = new PageObjectManager(driver);
             
             LoggerUtil.info("Test setup completed successfully for browser: " + browserName);
         } catch (Exception e) {
@@ -94,16 +90,23 @@ public class BaseTest {
         }
     }
 
-    @AfterMethod
+    @AfterMethod(alwaysRun = true)
     public void tearDown(ITestResult result) {
-        // Take screenshot on test failure
-        if (result.getStatus() == ITestResult.FAILURE) {
-            takeScreenshotOnFailure(result.getName());
-        }
-        
-        // Quit the WebDriver
-        if (webDriverManager != null) {
-            webDriverManager.quitDriver();
+        try {
+            // Take screenshot on test failure
+            if (result.getStatus() == ITestResult.FAILURE) {
+                takeScreenshotOnFailure(result.getName());
+            }
+        } finally {
+            // Always quit the WebDriver, regardless of test result
+            if (webDriverManager != null && webDriverManager.isDriverInitialized()) {
+                try {
+                    webDriverManager.quitDriver();
+                    LoggerUtil.info("WebDriver closed successfully for test: " + result.getName());
+                } catch (Exception e) {
+                    LoggerUtil.error("Failed to close WebDriver for test: " + result.getName(), e);
+                }
+            }
         }
     }
 
@@ -133,6 +136,22 @@ public class BaseTest {
         } catch (Exception e) {
             LoggerUtil.error("Failed to attach screenshot to report: " + e.getMessage(), e);
             return new byte[0];
+        }
+    }
+
+    /**
+     * Cleanup method that runs after all tests in the suite complete
+     * This ensures any remaining WebDriver instances are properly closed
+     */
+    @AfterSuite(alwaysRun = true)
+    public void suiteCleanup() {
+        try {
+            if (webDriverManager != null && webDriverManager.isDriverInitialized()) {
+                webDriverManager.quitDriver();
+                LoggerUtil.info("Suite cleanup: WebDriver closed successfully");
+            }
+        } catch (Exception e) {
+            LoggerUtil.error("Suite cleanup: Failed to close WebDriver", e);
         }
     }
 }
