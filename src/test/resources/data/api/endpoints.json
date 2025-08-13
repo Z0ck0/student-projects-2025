@@ -1,0 +1,45 @@
+{
+  "baseUrls": {
+    "dev": "https://dev-api.demoqa.com",
+    "staging": "https://staging-api.demoqa.com",
+    "prod": "https://api.demoqa.com"
+  },
+  "endpoints": {
+    "users": {
+      "getAll": "/api/users",
+      "getById": "/api/users/{id}",
+      "create": "/api/users",
+      "update": "/api/users/{id}",
+      "delete": "/api/users/{id}",
+      "login": "/api/auth/login",
+      "logout": "/api/auth/logout"
+    },
+    "books": {
+      "getAll": "/api/books",
+      "getById": "/api/books/{id}",
+      "create": "/api/books",
+      "update": "/api/books/{id}",
+      "delete": "/api/books/{id}",
+      "search": "/api/books/search"
+    },
+    "forms": {
+      "submit": "/api/forms/submit",
+      "validate": "/api/forms/validate",
+      "getTemplates": "/api/forms/templates"
+    }
+  },
+  "headers": {
+    "contentType": "application/json",
+    "accept": "application/json",
+    "authorization": "Bearer {token}"
+  },
+  "timeouts": {
+    "connection": 30000,
+    "read": 60000,
+    "write": 30000
+  },
+  "retry": {
+    "maxAttempts": 3,
+    "delayMs": 1000
+  }
+}

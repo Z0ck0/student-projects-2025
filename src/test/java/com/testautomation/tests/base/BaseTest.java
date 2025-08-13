@@ -34,6 +34,9 @@ public class BaseTest {
 
     protected WebDriverManager webDriverManager;
     protected PageObjectManager pages;
+    
+    // Control whether to auto-navigate to base URL
+    private boolean autoNavigateToBaseUrl = true;
 
     // Variables to store generated data for testing.
     public String getRandomEmail;
@@ -74,10 +77,15 @@ public class BaseTest {
             actions = new Actions(driver);
 
             // Auto-navigate to base URL if driver is on blank page or not yet navigated
-            String currentUrl = driver.getCurrentUrl();
-            if (currentUrl.equals("about:blank") || currentUrl.isEmpty() || currentUrl.equals("data:,")) {
-                LoggerUtil.info("Auto-navigating to base URL: " + ConfigReader.getBaseUrl());
-                driver.get(ConfigReader.getBaseUrl());
+            // This can be overridden by subclasses using setAutoNavigateToBaseUrl(false)
+            if (shouldAutoNavigateToBaseUrl()) {
+                String currentUrl = driver.getCurrentUrl();
+                if (currentUrl.equals("about:blank") || currentUrl.isEmpty() || currentUrl.equals("data:,")) {
+                    LoggerUtil.info("Auto-navigating to base URL: " + ConfigReader.getBaseUrl());
+                    driver.get(ConfigReader.getBaseUrl());
+                }
+            } else {
+                LoggerUtil.info("Auto-navigation to base URL is disabled for this test class");
             }
             
             // Initialize PageObjectManager for easy access to all page objects
@@ -153,5 +161,22 @@ public class BaseTest {
         } catch (Exception e) {
             LoggerUtil.error("Suite cleanup: Failed to close WebDriver", e);
         }
+    }
+    
+    /**
+     * Check if auto-navigation to base URL should be performed
+     * @return true if auto-navigation is enabled, false otherwise
+     */
+    protected boolean shouldAutoNavigateToBaseUrl() {
+        return autoNavigateToBaseUrl;
+    }
+    
+    /**
+     * Enable or disable auto-navigation to base URL
+     * @param enabled true to enable, false to disable
+     */
+    protected void setAutoNavigateToBaseUrl(boolean enabled) {
+        this.autoNavigateToBaseUrl = enabled;
+        LoggerUtil.info("Auto-navigation to base URL " + (enabled ? "enabled" : "disabled"));
     }
 }

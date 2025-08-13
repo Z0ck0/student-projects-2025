@@ -73,6 +73,7 @@ public class PageObjectManager {
      */
     public void navigateToButtonsPage() {
         driver.get(ConfigReader.getBaseUrl() + "buttons");
+
         LoggerUtil.info("Navigated to Buttons page");
     }
     
