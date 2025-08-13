@@ -6,6 +6,7 @@ import com.testautomation.enums.BrowserType;
 import com.testautomation.utils.common.LoggerUtil;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeDriverService;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.edge.EdgeOptions;
@@ -59,8 +60,9 @@ public class WebDriverManager {
 
     private WebDriver createChromeDriver() {
         try {
-            // ChromeDriverService chromeService = ChromeDriverService.createDefaultService(); // This line was removed as per the new_code
-            return new ChromeDriver(getChromeOptions());
+            // Create ChromeDriverService with explicit path for better macOS compatibility
+            ChromeDriverService chromeService = ChromeDriverService.createDefaultService();
+            return new ChromeDriver(chromeService, getChromeOptions());
         } catch (Exception e) {
             throw new WebDriverException("ChromeDriver", 
                 "Failed to create Chrome driver", e);
@@ -110,7 +112,9 @@ public class WebDriverManager {
                 "--disable-web-security",
                 "--allow-running-insecure-content",
                 "--disable-features=VizDisplayCompositor",
-                "--remote-debugging-port=9222"
+                "--disable-blink-features=AutomationControlled",
+                "--disable-infobars",
+                "--disable-notifications"
             );
             if (ConfigReader.isHeadless()) {
                 options.addArguments("--headless=new");

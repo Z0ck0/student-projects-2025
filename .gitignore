@@ -35,7 +35,42 @@ build/
 .vscode/
 .history/
 .idea/
+
+### Test Automation Framework ###
 allure-results/
+allure-report/
+screenshots/
+logs/
+*.log
+test-output/
+test-results/
 
 ### Mac OS ###
 .DS_Store
+.AppleDouble
+.LSOverride
+
+### Java ###
+*.class
+*.jar
+*.war
+*.ear
+*.nar
+hs_err_pid*
+replay_pid*
+
+### Maven ###
+.mvn/timing.properties
+.mvn/wrapper/maven-wrapper.properties
+
+### Temporary Files ###
+*.tmp
+*.temp
+*.swp
+*.swo
+*~
+
+### OS Generated Files ###
+Thumbs.db
+ehthumbs.db
+Desktop.ini
