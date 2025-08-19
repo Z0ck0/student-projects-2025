@@ -45,7 +45,7 @@ public class TemplateTest extends BaseTest {
      * Simple Test Method - No Advanced Features
      * 
      * This is the most basic test method that ignores all advanced features.
-     * Just pure Selenium WebDriver testing with basic assertions.
+     * Just pure Selenium WebDriver testing.
      */
     @Test(description = "Template Test Method - Simple Test Without Advanced Features")
     public void simpleTestWithoutAdvancedFeatures() {
@@ -58,6 +58,11 @@ public class TemplateTest extends BaseTest {
         System.out.println("Page Title: " + title);
         System.out.println("Page URL: " + url);
 
+        // Basic assertions using assert keyword
+        assert title != null && !title.isEmpty() : "Page title should not be null or empty";
+        assert url.contains("https://demoqa.com/") : "URL should contain 'https://demoqa.com/'";
+        
+        System.out.println("All assertions passed - test completed successfully");
     }
     
 
@@ -71,8 +76,8 @@ public class TemplateTest extends BaseTest {
      * Copy this method and modify it for your specific test needs.
      */
     @Test(description = "Template Test Method 1 - Basic Structure Example", groups = {"smoke"}, priority = 1)
-    @Story("Basic Test Structure")
-    @Severity(SeverityLevel.CRITICAL)
+    @Story("Basic Test Structure") // ← Only for reports
+    @Severity(SeverityLevel.CRITICAL) // ← Only for reports
     public void templateTestMethod() {
         try {
             LoggerUtil.info("=== Starting Template Test Method 1 ===");
