@@ -1,17 +1,15 @@
 package com.testautomation.pages;
 
 import com.testautomation.core.pages.BasePage;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.FindBy;
 
 public class ExamplePage extends BasePage {
     
-    @FindBy(tagName = "body")
-    private WebElement bodyElement;
-    
-    @FindBy(tagName = "h1")
-    private WebElement headingElement;
+    // Page element locators using By for better control
+    private final By bodyElement = By.tagName("body");
+    private final By headingElement = By.tagName("h1");
     
     public ExamplePage(WebDriver driver) {
         super(driver);
