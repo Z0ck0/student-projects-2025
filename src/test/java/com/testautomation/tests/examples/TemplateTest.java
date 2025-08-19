@@ -40,6 +40,30 @@ import org.testng.annotations.Parameters;
 @Listeners({com.testautomation.core.listeners.TestListener.class})
 public class TemplateTest extends BaseTest {
 
+
+    /**
+     * Simple Test Method - No Advanced Features
+     * 
+     * This is the most basic test method that ignores all advanced features.
+     * Just pure Selenium WebDriver testing with basic assertions.
+     */
+    @Test(description = "Template Test Method - Simple Test Without Advanced Features")
+    public void simpleTestWithoutAdvancedFeatures() {
+
+        // Get basic page information
+        String title = driver.getTitle();
+        String url = driver.getCurrentUrl();
+
+        // Simple console output
+        System.out.println("Page Title: " + title);
+        System.out.println("Page URL: " + url);
+
+    }
+    
+
+    //---------------------------------
+    //---------------------------------
+
     /**
      * Basic Template Test Method
      * 
@@ -49,7 +73,7 @@ public class TemplateTest extends BaseTest {
     @Test(description = "Template Test Method 1 - Basic Structure Example", groups = {"smoke"}, priority = 1)
     @Story("Basic Test Structure")
     @Severity(SeverityLevel.CRITICAL)
-    public void templateTestMethod1() {
+    public void templateTestMethod() {
         try {
             LoggerUtil.info("=== Starting Template Test Method 1 ===");
             LoggerUtil.info("Test Thread: " + Thread.currentThread().getName());
@@ -145,41 +169,7 @@ public class TemplateTest extends BaseTest {
         }
     }
 
-    /**
-     * Template Test Method with Data Provider
-     * 
-     * Example of how to create data-driven tests.
-     * Uncomment and modify as needed.
-     */
-    @Test(description = "Template Test Method with Data Provider", dataProvider = "testData")
-    @Story("Data-Driven Testing")
-    @Severity(SeverityLevel.NORMAL)
-    public void templateTestMethodWithDataProvider(String data1, String data2) {
-        try {
-            LoggerUtil.info("=== Starting Data-Driven Test ===");
-            LoggerUtil.info("Test Thread: " + Thread.currentThread().getName());
-            LoggerUtil.info("Data 1: " + data1);
-            LoggerUtil.info("Data 2: " + data2);
-            
-            // TODO: Add your data-driven test logic here
-            
-            LoggerUtil.info("Data-driven test completed successfully");
-            LoggerUtil.info("=== Data-Driven Test Completed ===");
-            
-        } catch (Exception e) {
-            LoggerUtil.error("Data-driven test failed: " + e.getMessage());
-            throw e;
-        }
-    }
-    
-    @DataProvider(name = "testData")
-    public Object[][] getTestData() {
-        return new Object[][] {
-            {"test1", "value1"},
-            {"test2", "value2"},
-            {"test3", "value3"}
-        };
-    }
+
 
     /**
      * Framework Configuration Showcase Test
@@ -328,40 +318,6 @@ public class TemplateTest extends BaseTest {
         }
     }
 
-    /**
-     * Wait Utilities Showcase Test
-     * 
-     * Demonstrates how to use framework's wait utilities.
-     * Useful for handling dynamic elements and page loading.
-     */
-    @Test(description = "Wait Utilities Showcase")
-    @Story("Wait Utilities")
-    @Severity(SeverityLevel.MINOR)
-    public void testWaitUtilities() {
-        try {
-            LoggerUtil.info("=== Starting Wait Utilities Test ===");
-            LoggerUtil.info("Test Thread: " + Thread.currentThread().getName());
-            LoggerUtil.info("Current Browser: " + ConfigReader.getDefaultBrowser());
-            
-            // Showcase various wait utilities
-            LoggerUtil.info("Testing Wait Utilities:");
-            
-            // Test title wait
-            boolean titleWaitSuccess = com.testautomation.utils.browser.WaitUtils.waitForTitleContains(driver, "Expected Title", 10);
-            LoggerUtil.info("Title wait success: " + titleWaitSuccess);
-            
-            // Test URL wait
-            boolean urlWaitSuccess = com.testautomation.utils.browser.WaitUtils.waitForUrlContains(driver, "expected-url", 10);
-            LoggerUtil.info("URL wait success: " + urlWaitSuccess);
-            
-            // TODO: Add your wait utility test logic here
-            
-            LoggerUtil.info("Wait utilities test completed successfully");
-            LoggerUtil.info("=== Wait Utilities Test Completed ===");
-            
-        } catch (Exception e) {
-            LoggerUtil.error("Wait utilities test failed: " + e.getMessage());
-            throw e;
-        }
-    }
+
+
 }
