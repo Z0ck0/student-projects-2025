@@ -4,7 +4,6 @@ import com.testautomation.core.pages.BasePage;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.interactions.Actions;
 
@@ -22,12 +21,9 @@ public class ButtonsPage extends BasePage {
     // Actions for complex interactions
     private Actions actions;
     
-    // Page title and heading locators
-    @FindBy(tagName = "h1")
-    private WebElement pageHeading;
-    
-    @FindBy(tagName = "body")
-    private WebElement bodyElement;
+    // Page title and heading locators using By for better control
+    private final By pageHeading = By.tagName("h1");
+    private final By bodyElement = By.tagName("body");
     
     // Button locators using By for better control
     private final By doubleClickButton = By.id("doubleClickBtn");
